@@ -27,11 +27,11 @@ import com.manageformation.filter.JwtAuthFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+	
     @Autowired
     private JwtAuthFilter authFilter;
 
     @Bean
-    //authentication
     public UserDetailsService userDetailsService() {
 //        UserDetails admin = User.withUsername("Basant")
 //                .password(encoder.encode("Pwd1"))
@@ -49,9 +49,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne").permitAll()
+                .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne","/formation/welcome").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**")
+                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**")
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -73,9 +73,9 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
 }

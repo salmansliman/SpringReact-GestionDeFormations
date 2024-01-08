@@ -8,6 +8,5 @@ import com.manageformation.entities.Formater;
 
 
 public interface FormaterRepository extends JpaRepository<Formater, Integer>{
-	  Optional<Formater> findByName(String username);
-
+	  Optional<Formater> findByName(String name);
 }

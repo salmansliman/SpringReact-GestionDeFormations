@@ -23,6 +23,7 @@ public class UsersController {
 
     @Autowired
     private UsersService service;
+    
     @Autowired
     private JwtService jwtService;
 
@@ -38,11 +39,13 @@ public class UsersController {
     public String addNewUser(@RequestBody UserInfo userInfo) {
         return service.addUser(userInfo);
     }
+    
     @PostMapping("/newFormaterInterne")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String addNewFormaterInterne(@RequestBody Formater formater) {
         return service.addFormaterInterne(formater);
     }
+    
     @PostMapping("/newFormaterExterne")
     public String addNewFormaterExterne(@RequestBody Formater formater) {
         return service.addFormaterExterne(formater);
@@ -61,7 +64,6 @@ public class UsersController {
     }
     */
 
-
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -70,9 +72,8 @@ public class UsersController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
-
-
     }
+    
     @PostMapping("/newAssistant")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String addNewAssitant(@RequestBody UserInfo userInfo) {
