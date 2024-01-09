@@ -33,6 +33,13 @@ public class UsersService {
     	userInfo.setPassword(passwordEncoder.encode("1234"));
     	userInfo.setRoles("ROLE_ADMIN");
     	repository.save(userInfo);
+    	UserInfo userAssistant=new UserInfo();
+    	userAssistant.setId(2);
+    	userAssistant.setName("assistant");
+    	userAssistant.setEmail("assistant@assistant.com");
+    	userAssistant.setPassword(passwordEncoder.encode("1234"));
+    	userAssistant.setRoles("ROLE_ASSISTANT");
+    	repository.save(userAssistant);
     }
     
     public String addUser(UserInfo userInfo) {
