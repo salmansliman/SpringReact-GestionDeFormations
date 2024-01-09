@@ -14,6 +14,4 @@ import lombok.NoArgsConstructor;
 public class Formater extends UserInfo {
 	private String type;
 	private String competence;
-	
-
 }
