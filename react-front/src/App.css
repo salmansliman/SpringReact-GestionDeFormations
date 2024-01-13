@@ -252,4 +252,8 @@ img, video {
 .loginPage .container .formDiv .form .forgotPassword a {
   text-decoration: underline;
   cursor: pointer;
-}/*# sourceMappingURL=App.css.map */
+}
+body {
+  background: #dde6ed;
+  padding: 20px;
+}
