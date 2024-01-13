@@ -22,5 +22,13 @@ public class Formation {
 	private Double cout;
 	private String objectifs;
 	private String progammeDetails;
+	private Date dateDebut;
+	private Date dateEnd;
+	private String ville;
+	private String categorie;
+	@ManyToOne
+	private Formater formater;
+	@ManyToOne
+	private Entreprise entreprise;
 	
 }

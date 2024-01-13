@@ -2,6 +2,7 @@ import './App.css'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
+import Formation from './Components/AddFormation/formation'
 import {
   createBrowserRouter,
   Route,
@@ -21,7 +22,10 @@ const router = createBrowserRouter([
   path: '/',
   element: <div><Dashboard/></div>
   },
-  
+  {
+  path:'/formation',
+  element:<div><Formation></Formation></div>
+  },
 ])
 
 function App() {
