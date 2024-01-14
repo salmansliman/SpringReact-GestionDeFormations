@@ -1,12 +1,15 @@
 import React from 'react'
 import ContentHeader from './ContentHeader'
+import Card from './Card'
+import './Content.css'
+import TeacherList from '../TeacherList/TeacherList'
 
 const Content = () => {
   return (
-    <div>
-        <div className="content">
-            <ContentHeader/>
-        </div>
+    <div className="content">
+        <ContentHeader/>
+        <Card/>
+        <TeacherList />
     </div>
   )
 }
