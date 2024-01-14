@@ -1,6 +1,7 @@
 import React from 'react'
 import { BiBookAlt, BiHelpCircle, BiHome, BiTask, BiSolidReport, BiStats } from 'react-icons/bi'
 import './Sidebar.css'
+import { Link } from 'react-router-dom'
 
 
 const Sidebar = () => {
@@ -12,14 +13,14 @@ const Sidebar = () => {
         </div>
 
         <div className="menu--list">
-            <a href="#" className="item active">
+            <Link to="/dashboard" className="item active">
                 <BiHome />
                 Dashboard
-            </a>
-            <a href="#" className="item">
+            </Link>
+            <Link to="profile" className="item">
                 <BiTask />
                 Formations
-            </a>
+            </Link>
             <a href="#" className="item">
                 <BiStats />
                 Companies

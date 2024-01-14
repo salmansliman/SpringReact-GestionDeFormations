@@ -14,6 +14,28 @@ const formations = [
         title: "iOS Development",
         icon: <BiLogoApple />,
     },
+    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },
+    ,    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },
+    ,    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },
+    ,    {
+        title: "iOS Development",
+        icon: <BiLogoApple />,
+    },
 ]
 
 const Card = () => {

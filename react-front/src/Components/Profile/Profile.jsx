@@ -1,7 +1,7 @@
-import React from 'react'
 import ProfileHeader from './ProfileHeader'
 import'./Profile.css'
 import { BiBook } from "react-icons/bi"
+import React, { useEffect } from 'react';
 
 const courses = [
     {
@@ -17,6 +17,11 @@ const courses = [
 ]
 
 const Profile = () => {
+    useEffect(() => {
+        // Log the current route path
+        console.log(window.location.pathname);
+      }, []);
+    
   return (
     <div className='profile'>
         <ProfileHeader />
