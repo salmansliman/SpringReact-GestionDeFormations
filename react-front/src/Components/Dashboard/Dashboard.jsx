@@ -2,6 +2,7 @@ import React from 'react'
 import Sidebar from '../Sidebar/Sidebar'
 import './Dashboard.css'
 import Content from '../Content/Content'
+import Profile from '../Profile/Profile'
 
 const Dashboard = () => {
   return (
@@ -9,6 +10,7 @@ const Dashboard = () => {
       <Sidebar/>
       <div className="dashboard--content">
         <Content />
+        <Profile />
       </div>
     </div>
   )
