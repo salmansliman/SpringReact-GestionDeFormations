@@ -1,6 +1,7 @@
 package com.manageformation.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,15 @@ public class FormationService {
     }
     public List<Formation> findFormationByDateDebutBetween(Date dateDebut,Date dateEnd){
     	return repository.findByDateDebutBetween(dateDebut, dateEnd);
+    }
+	public List<Formation> findFormation(Date date){
+    	List<Formation> formations = repository.findAll();
+    	List <Formation> affiche =new ArrayList<Formation>();
+    	for (Formation f:formations ) {
+    		if((f.getDateDebut().before(date)) && (f.getDateEnd().after(date))) {
+    			affiche.add(f);
+    		}
+    	}
+    	return affiche;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,21 +43,25 @@ public class FormationController {
     public String updatFormation(@RequestBody Formation formation) {
     	return service.updateFormation(formation);
     }
-    @GetMapping("/ville/{ville}")
-    public List<Formation> findFormationByVille(@PathVariable String ville){
+    @GetMapping("/ville")
+    public List<Formation> findFormationByVille(@RequestBody String ville){
     	return service.findFormationByVille(ville);
     }
-    @GetMapping("/categorie/{categorie}")
-    public List<Formation> findFormationByCategorie(@PathVariable String categorie){
+    @PostMapping("/categorie")
+    public List<Formation> findFormationByCategorie(@RequestBody String categorie){
     	return service.findFormationByCategorie(categorie);
     }
-    @GetMapping("/datee")
+    @PostMapping("/date")
     public List<Formation> findFormationByDate(@RequestBody Date date){
     	return service.findFormationByDate(date);
     }
-    @GetMapping("/date/{date1}/{date2}")
-    public List<Formation> findFormationByDateDebutBetween(@PathVariable Date date1,@PathVariable Date date2){
+    @GetMapping("/datee")
+    public List<Formation> findFormationByDateDebutBetween(@RequestBody Date date1, Date date2){
     	return service.findFormationByDateDebutBetween(date1, date2);
+    }
+    @GetMapping("/findFormation")
+    public List<Formation> findFormation(@RequestBody Date date){
+    	return service.findFormation(date);
     }
     
 }
