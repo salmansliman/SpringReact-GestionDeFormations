@@ -4,34 +4,20 @@ import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import Formation from './Components/AddFormation/formation'
 import {
-  createBrowserRouter,
+  Routes,
   Route,
-  RouterProvider,
+  BrowserRouter,
 } from 'react-router-dom'
-
-const router = createBrowserRouter([
-  {
-  path: '/login',
-  element: <div><Login/></div>
-  },
-  {
-    path: '/register',
-    element: <div><Register/></div>
-  },
-  {
-  path: '/',
-  element: <div><Dashboard/></div>
-  },
-  {
-  path:'/formation',
-  element:<div><Formation></Formation></div>
-  },
-])
 
 function App() {
   return (
     <div>
-      <RouterProvider router={router}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
