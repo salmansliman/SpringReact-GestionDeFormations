@@ -18,10 +18,10 @@ const AddEntreprise = () => {
   };
 
   return (
-    <div className='container'>
-      <h2>Add Entreprise</h2>
+    <div className='containerAdd'>
+      <h2 className='headerAdd'>Add Entreprise</h2>
       <form onSubmit={(e) => e.preventDefault()}>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='nom'>Nom</label>
           <input
             type='text'
@@ -30,7 +30,7 @@ const AddEntreprise = () => {
             onChange={(e) => setNom(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='adresse'>Adresse</label>
           <input
             type='text'
@@ -39,7 +39,7 @@ const AddEntreprise = () => {
             onChange={(e) => setAdresse(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='telephone'>Téléphone</label>
           <input
             type='tel'
@@ -48,7 +48,7 @@ const AddEntreprise = () => {
             onChange={(e) => setTelephone(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='url'>URL</label>
           <input
             type='url'
@@ -57,7 +57,7 @@ const AddEntreprise = () => {
             onChange={(e) => setUrl(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='email'>Email</label>
           <input
             type='email'
@@ -67,8 +67,8 @@ const AddEntreprise = () => {
           />
         </div>
         <div>
-          <div className='bottomForm'>
-            <button type='submit' onClick={handleAddEntreprise}>
+          <div className='bottomFormAdd'>
+            <button className='submitButton' type='submit' onClick={handleAddEntreprise}>
               Add
             </button>
           </div>

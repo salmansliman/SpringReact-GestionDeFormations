@@ -1,37 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "Nunito",sans-serif;
-}
-:root {
-    --primaryColor:#27374d;
-    --accentColor:#dde6ed;
-    --darkColorTwo:#2c203b;
-}
-body {
-    height: 100vh;
-    overflow: hidden;
 
-}
-h2 {
-    color: var(--darkColorTwo);
+.headerAdd {
+    color: #2c203b;
     text-align: center;
     font-weight: 500;
 
 }
-.inputContainer {
-    color: var(--primaryColor);
+.inputContainerAdd {
+    color: #2c203b;
     background-color: transparent;
     border: none;
-    border-bottom: solid 1px var(--primaryColor);
+    border-bottom: solid 1px 27374d;
     padding-inline: 0.2rem;
     padding-bottom: 0.2rem;
     font-weight: bold;
 }
-button {
-    color: var(--accentColor);
-    background-color: var(--primaryColor);
+.submitButton {
+    color: #dde6ed;
+    background-color: 27374d;
     border: none;
     border-radius: 14px;
     padding: 0.4rem 0.8rem;
@@ -41,11 +27,11 @@ button {
     transition: 0.2s ease-in-out;
     cursor: pointer;
 }
-button:active {
+.submitButton:active {
     box-shadow: none;
     transform: scale(0.9);
 }
-.container {
+.containerAdd {
     display: flex;
     align-items:  center;
     flex-direction: column;
@@ -59,9 +45,9 @@ button:active {
     height: 100%;
     max-height: 550px;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.572);
-    background-color: var(--accentColor);
+    background-color: #dde6ed;
 }
-.inputContainer{
+.inputContainerAdd {
     display: flex;
     flex-direction: column;
     margin-block: 1rem;
@@ -70,7 +56,7 @@ button:active {
 :focus {
     outline:none;
 }
-.bottomForm {
+.bottomFormAdd {
     display: flex;
     flex-direction: column;
     justify-content: center;

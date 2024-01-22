@@ -20,10 +20,10 @@ const AddFormater = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='containerAdd'>
       <h2>Add Formater</h2>
       <form onSubmit={(e) => e.preventDefault()}>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='name'>Name</label>
           <input
             type='text'
@@ -32,7 +32,7 @@ const AddFormater = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='email'>Email</label>
           <input
             type='email'
@@ -41,7 +41,7 @@ const AddFormater = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='password'>Password</label>
           <input
             type='password'
@@ -50,7 +50,7 @@ const AddFormater = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='role'>Role</label>
           <select
             id='role'
@@ -60,7 +60,7 @@ const AddFormater = () => {
             <option value='Formater'>Formater</option>
           </select>
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='competenceType'>Competence Type</label>
           <input
             type='text'
@@ -69,7 +69,7 @@ const AddFormater = () => {
             onChange={(e) => setCompetenceType(e.target.value)}
           />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <label htmlFor='type'>Type</label>
           <select
             id='type'
@@ -81,8 +81,8 @@ const AddFormater = () => {
           </select>
         </div>
         <div>
-          <div className='bottomForm'>
-            <button type='submit' onClick={handleAddFormater}>
+          <div className='bottomFormAdd'>
+            <button className='submitButton' type='submit' onClick={handleAddFormater}>
               Add
             </button>
           </div>
