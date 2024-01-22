@@ -70,4 +70,7 @@ public class UsersService {
         repository.save(userInfo);
         return "assistant added to system";
     }
+    public String findRoleByName(String user) {
+    	return repository.findRoleByName(user);
+    }
 }
