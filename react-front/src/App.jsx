@@ -1,8 +1,9 @@
 import './App.css'
 import Dashboard from './Components/Dashboard/Dashboard'
 import Login from './Components/Login/Login'
-import Register from './Components/Register/Register'
-import Formation from './Components/AddFormation/formation'
+import Header from './Components/heading/Header'
+
+
 import {
   Routes,
   Route,
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/header" element={<Header />} />
         </Routes>
       </BrowserRouter>
     </div>
