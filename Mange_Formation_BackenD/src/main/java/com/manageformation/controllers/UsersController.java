@@ -1,7 +1,11 @@
 package com.manageformation.controllers;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +33,10 @@ public class UsersController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private UsersService userService;
+    
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -65,12 +73,21 @@ public class UsersController {
     */
 
     @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<Map<String, Object>> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            String role = userService.findRoleByName(authRequest.getUsername());
+            String token = jwtService.generateToken(authRequest.getUsername());
+
+            // Build JSON response as a Map
+            Map<String, Object> jsonResponse = new HashMap<>();
+            jsonResponse.put("token", token);
+            jsonResponse.put("role", role);
+
+            return ResponseEntity.ok(jsonResponse);
         } else {
-            throw new UsernameNotFoundException("invalid user request !");
+            throw new UsernameNotFoundException("Invalid user request!");
         }
     }
     
