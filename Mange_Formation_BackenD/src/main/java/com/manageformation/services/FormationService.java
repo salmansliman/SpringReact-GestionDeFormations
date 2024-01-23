@@ -6,10 +6,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.manageformation.entities.Entreprise;
 import com.manageformation.entities.Formation;
 import com.manageformation.repositories.FormationRepository;
 
 @Service
+@Transactional
 public class FormationService {
 	
 	@Autowired
@@ -26,8 +30,6 @@ public class FormationService {
 		formation.setCout(temp.getCout());
 		formation.setObjectifs(temp.getObjectifs());
 		formation.setProgammeDetails(temp.getProgammeDetails());
-		formation.setDateDebut(temp.getDateDebut());
-		formation.setDateEnd(temp.getDateEnd());
 		formation.setVille(temp.getVille());
 		formation.setCategorie(temp.getCategorie());
 		repository.save(formation);
@@ -58,4 +60,10 @@ public class FormationService {
     	}
     	return affiche;
     }
+	public Formation getFormationById (int id) {
+		return repository.findById(id);
+	}
+	public List<Formation> findFormationByEntreprise(Entreprise entreprise){
+		return repository.findByEntreprise(entreprise);
+	}
 }

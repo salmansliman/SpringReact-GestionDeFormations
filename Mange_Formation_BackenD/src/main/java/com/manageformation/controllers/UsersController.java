@@ -74,11 +74,11 @@ public class UsersController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<Map<String, Object>> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 
         if (authentication.isAuthenticated()) {
-            String role = userService.findRoleByName(authRequest.getUsername());
-            String token = jwtService.generateToken(authRequest.getUsername());
+            String role = userService.findRoleByEmail(authRequest.getEmail());
+            String token = jwtService.generateToken(authRequest.getEmail());
 
             // Build JSON response as a Map
             Map<String, Object> jsonResponse = new HashMap<>();
@@ -96,5 +96,17 @@ public class UsersController {
     public String addNewAssitant(@RequestBody UserInfo userInfo) {
         return service.addAssistance(userInfo);
     }
+    @PutMapping("/update")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    public String UpdateFormater(@RequestBody Formater formater) {
+    	return service.updateFormater(formater);
+    }
     
+    @DeleteMapping("deleteFormater")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    public void DeleteFormater(@RequestBody Formater formater) {
+    	service.DeleteFormater(formater);
+    }
+    
+   
 }
