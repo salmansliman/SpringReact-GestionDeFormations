@@ -16,9 +16,9 @@ import com.manageformation.services.JwtService;
 import com.manageformation.services.UsersService;
 
 
-
 @RestController
 @RequestMapping("/users")
+@CrossOrigin("*")
 public class UsersController {
 
     @Autowired

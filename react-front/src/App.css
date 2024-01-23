@@ -64,7 +64,7 @@ img, video {
 .showMessage {
   display: block;
   color: var(--whiteColor);
-  background: rgb(255, 0, 0);
+  color: rgb(255, 0, 0);
   border-radius: 3px;
   text-align: center;
   padding: 10px;
@@ -179,6 +179,7 @@ img, video {
   flex-direction: column;
   gap: 1.5rem;
   transform: translateY(-1rem);
+  justify-content: space-between;
 }
 .loginPage .container .formDiv .headerDiv {
   text-align: center;
