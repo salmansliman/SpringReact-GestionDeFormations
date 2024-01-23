@@ -26,7 +26,7 @@ const Dashboard = () => {
     <div className='dashboard'>
       <Sidebar/>
       <div className="dashboard--content">
-        <AddEntreprise/>
+        <DashboardHome />
       </div>
     </div>
 

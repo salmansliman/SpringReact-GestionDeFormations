@@ -43,16 +43,18 @@ const Login = () => {
     
         try {
             const response = await axios.post(LOGIN_URL, {
-                username: user,
+                email: user,
                 password: pwd
             });
-    
-            const accessToken = response?.data;
+            
+            console.log(response?.data?.role)
+            console.log(response?.data?.token)
+            const accessToken = response?.data?.token;
             setAuth({ user, pwd, accessToken });
             localStorage.setItem('token', accessToken);
             localStorage.setItem('user', user);
-    
-            console.log(user, pwd);
+            localStorage.setItem('role', response?.data?.role)
+            console.log(user, pwd, response?.data?.role);
             console.log(success);
             setUser("");
             setPwd("");
