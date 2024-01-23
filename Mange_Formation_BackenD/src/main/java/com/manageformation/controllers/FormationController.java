@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manageformation.entities.Formation;
+import com.manageformation.entities.Student;
 import com.manageformation.services.FormationService;
+import com.manageformation.services.StudentService;
 
 @RestController
 @RequestMapping("/formation")
@@ -22,6 +24,9 @@ public class FormationController {
 
     @Autowired
     private FormationService service;
+    
+    @Autowired
+    private StudentService studentService;
     
     @PostMapping("/newFormation")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -62,6 +67,11 @@ public class FormationController {
     @GetMapping("/findFormation")
     public List<Formation> findFormation(@RequestBody Date date){
     	return service.findFormation(date);
+    }
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    @GetMapping("/inscrit")
+    public List<Student> getStudentInscrit(@RequestBody Formation formation){
+    	return studentService.getAllInFormation(formation);
     }
     
 }

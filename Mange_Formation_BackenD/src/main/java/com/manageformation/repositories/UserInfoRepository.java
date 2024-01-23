@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
     Optional<UserInfo> findByName(String username);
-    @Query("SELECT u.roles FROM UserInfo u WHERE u.name = :name")
-    String findRoleByName(@Param("name")String name);
+    Optional<UserInfo> findByEmail(String email);
+    @Query("SELECT u.roles FROM UserInfo u WHERE u.email = :email")
+    String findRoleByEmail(@Param("email")String email);
 }
