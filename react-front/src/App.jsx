@@ -1,25 +1,22 @@
-import './App.css'
-import Dashboard from './Components/Dashboard/Dashboard'
-import Login from './Components/Login/Login'
-import Register from './Components/Register/Register'
-import Formation from './Components/AddFormation/formation'
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-} from 'react-router-dom'
+import React from 'react';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Dashboard from './Components/Dashboard/Dashboard';
+import Login from './Components/Login/Login';
+import { AuthProvider } from './Components/Login/context/AuthProvider';
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
