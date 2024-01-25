@@ -19,31 +19,31 @@ const AddFormation = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='containerAdd'>
       <h2>Add Formation</h2>
       <form onSubmit={(e) => e.preventDefault()}>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <p>Course Title</p>
           <input type='text' value={courseTitle} onChange={(e) => setCourseTitle(e.target.value)} />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <p>Duration</p>
           <input type='number' value={duration} onChange={(e) => setDuration(e.target.value)} />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <p>Cost</p>
           <input type='number' value={cost} onChange={(e) => setCost(e.target.value)} />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <p>Goals</p>
           <input type='text' value={goals} onChange={(e) => setGoals(e.target.value)} />
         </div>
-        <div className='inputContainer'>
+        <div className='inputContainerAdd'>
           <p>Course Details</p>
           <input type='text' value={courseDetails} onChange={(e) => setCourseDetails(e.target.value)} />
         </div>
         <div>
-          <div className='bottomForm'>
+          <div className='bottomFormAdd'>
             <button type='submit' onClick={MyAdd}>
               Add
             </button>

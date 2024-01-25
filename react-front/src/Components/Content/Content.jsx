@@ -4,11 +4,11 @@ import Card from './Card'
 import './Content.css'
 import TeacherList from '../TeacherList/TeacherList'
 
-const Content = () => {
+const Content = ({ allFormations }) => {
   return (
     <div className="content">
         <ContentHeader/>
-        <Card/>
+        <Card allFormations={allFormations} />
         <TeacherList />
     </div>
   )
