@@ -2,6 +2,7 @@ package com.manageformation.controllers;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,19 +59,6 @@ public class UsersController {
     public String addNewFormaterExterne(@RequestBody Formater formater) {
         return service.addFormaterExterne(formater);
     }
-/*
-    @GetMapping("/all")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public List<Product> getAllTheProducts() {
-        return service.getProducts();
-    }
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
-    public Product getProductById(@PathVariable int id) {
-        return service.getProduct(id);
-    }
-    */
 
     @PostMapping("/authenticate")
     public ResponseEntity<Map<String, Object>> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
@@ -106,6 +94,11 @@ public class UsersController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public void DeleteFormater(@RequestBody Formater formater) {
     	service.DeleteFormater(formater);
+    }
+    @GetMapping("/getAllFormaters")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    public List<Formater> getAllFormater(){
+    	return service.getAllFormaters();
     }
     
    

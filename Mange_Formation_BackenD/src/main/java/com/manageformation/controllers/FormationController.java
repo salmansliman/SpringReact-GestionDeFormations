@@ -68,10 +68,19 @@ public class FormationController {
     public List<Formation> findFormation(@RequestBody Date date){
     	return service.findFormation(date);
     }
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+   
     @GetMapping("/inscrit")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public List<Student> getStudentInscrit(@RequestBody Formation formation){
     	return studentService.getAllInFormation(formation);
     }
     
+    @GetMapping("/formaterFormation")
+    public List<Formation> getFormationByFormater(@RequestBody Formater formater){
+    	return service.findFormationByFormater(formater);
+    }
+    @GetMapping("/refresh")
+    public String deleteFormationEnd() {
+    	return service.deleteFormationEnd();
+    }
 }

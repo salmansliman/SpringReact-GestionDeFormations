@@ -115,4 +115,7 @@ public class UsersService {
     	fr.save(formater);
     	return "formater named "+formater.getName()+" updated";
     }
+    public List<Formater> getAllFormaters(){
+    	return fr.findAll();
+    }
 }
