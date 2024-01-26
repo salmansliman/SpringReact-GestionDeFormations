@@ -2,6 +2,7 @@ import ProfileHeader from './ProfileHeader'
 import'./Profile.css'
 import { BiBook } from "react-icons/bi"
 import React, { useEffect } from 'react';
+import { getRole } from '../../api/axios';
 
 const courses = [
     {
@@ -17,8 +18,11 @@ const courses = [
 ]
 
 const Profile = () => {
+    const userRole = getRole()
+    const hasCourses = getRole() == "ROLE_FORMATER" 
+    const userEmail = localStorage.getItem('user')
+
     useEffect(() => {
-        // Log the current route path
         console.log(window.location.pathname);
       }, []);
     
@@ -28,10 +32,11 @@ const Profile = () => {
 
         <div className="user--profile">
             <div className="user--detail">
-                <h3 className="username">Username</h3>
-                <span className="role">Admin</span>
+                <h3 className="username">{userEmail}</h3>
+                <span className="role">{userRole}</span>
             </div>
-            <div className="user-courses">
+            {
+                hasCourses ?             <div className="user-courses">
                 <h5 className="mycourses">My Courses</h5>
                 {courses.map((course) => (
                     <div className="course">
@@ -46,6 +51,8 @@ const Profile = () => {
                     </div>
                 ))}
             </div>
+            : <span></span>
+            }
         </div>
     </div>
   )

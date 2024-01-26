@@ -1,58 +1,21 @@
-import React from 'react'
-import { BiLogoAndroid, BiLogoApple, BiLogoHtml5 } from "react-icons/bi"
+import React from 'react';
+import { BiLogoApple } from "react-icons/bi";
 
-const formations = [
-    {
-        title: "Web Development",
-        icon: <BiLogoHtml5 />,
-    },
-    {
-        title: "Android Development",
-        icon: <BiLogoAndroid />,
-    },
-    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },
-    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },
-    ,    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },
-    ,    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },
-    ,    {
-        title: "iOS Development",
-        icon: <BiLogoApple />,
-    },
-]
-
-const Card = () => {
+const Card = ({ formations = [] }) => {
   return (
     <div className='card--container'>
-        {formations.map((item) =>(
-            <div className="card">
-                <div className="card--cover">
-                    {item.icon}
-                </div>
-                <div className="card--title">
-                    <h2>{item.title}</h2>
-                </div>
-            </div>
-        ))}
+      {formations.map((item) => (
+        <div className="card" key={item.id}>
+          <div className="card--cover">
+            <BiLogoApple />
+          </div>
+          <div className="card--title">
+            <h2>{item.nomFormation}</h2>
+          </div>
+        </div>
+      ))}
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;
