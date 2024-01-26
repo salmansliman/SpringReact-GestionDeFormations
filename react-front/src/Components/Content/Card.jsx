@@ -1,10 +1,10 @@
 import React from 'react';
-import { BiLogoAndroid, BiLogoApple, BiLogoHtml5 } from "react-icons/bi";
+import { BiLogoApple } from "react-icons/bi";
 
-const Card = ({ allFormations = [] }) => {
+const Card = ({ formations = [] }) => {
   return (
     <div className='card--container'>
-      {allFormations.map((item) => (
+      {formations.map((item) => (
         <div className="card" key={item.id}>
           <div className="card--cover">
             <BiLogoApple />
