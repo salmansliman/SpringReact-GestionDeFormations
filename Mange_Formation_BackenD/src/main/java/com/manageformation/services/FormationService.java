@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.manageformation.entities.Entreprise;
+import com.manageformation.entities.Formater;
 import com.manageformation.entities.Formation;
 import com.manageformation.repositories.FormationRepository;
 
@@ -65,5 +66,9 @@ public class FormationService {
 	}
 	public List<Formation> findFormationByEntreprise(Entreprise entreprise){
 		return repository.findByEntreprise(entreprise);
+	}
+	public List<Formation> findFormationByFormater(Formater formater){
+		return repository.findByFormater(formater);
+		
 	}
 }

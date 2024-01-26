@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne","/formation/welcome","/entreprise/welcome","/formation/all","/formation/{ville}","/formation/{date}","/{date1}/{date2}","/formation/**","/student/new").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**","/entreprise/**","/student/**")
+                .authorizeHttpRequests().requestMatchers("/users/**","/entreprise/**","/student/**","/formation/**")
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

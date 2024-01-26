@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.manageformation.entities.Formater;
 import com.manageformation.entities.Formation;
 import com.manageformation.entities.Student;
 import com.manageformation.services.FormationService;
@@ -74,4 +75,8 @@ public class FormationController {
     	return studentService.getAllInFormation(formation);
     }
     
+    @GetMapping("/formaterFormation")
+    public List<Formation> getFormationByFormater(@RequestBody Formater formater){
+    	return service.findFormationByFormater(formater);
+    }
 }
