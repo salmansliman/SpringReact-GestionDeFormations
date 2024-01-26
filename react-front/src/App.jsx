@@ -9,6 +9,7 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import AddEntreprise from './Components/AddEntreprise/AddEntreprise';
 import DashboardHome from './Components/Dashboard/DashboardHome';
 import AddFormation from './Components/AddFormation/AddFormation';
+import Register from './Components/Register/Register';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Landing />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="dashboard" element={<Dashboard/>} >
               <Route path='' element={<DashboardHome />} />
               <Route path="entreprise" element={<AddEntreprise/>} />
