@@ -1,6 +1,8 @@
 package com.manageformation.services;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +15,32 @@ import com.manageformation.entities.Formater;
 import com.manageformation.entities.Formation;
 import com.manageformation.repositories.FormationRepository;
 
+
 @Service
 @Transactional
 public class FormationService {
 	
 	@Autowired
 	private FormationRepository repository;
+	
+	   public String deleteFormationEnd() {
+	        List<Formation> formations = repository.findAll();
+	        LocalDate currentDate = LocalDate.now();
+
+	        for (Formation formation : formations) {
+	            Date endDate = formation.getDateEnd();
+	            
+	            if (endDate != null) {
+	                LocalDate localEndDate = endDate.toLocalDate();
+
+	                if (localEndDate.isBefore(currentDate)) {
+	                    repository.delete(formation);
+	                    return "Formation named: " + formation.getNomFormation() + " will be deleted";
+	                }
+	            }
+	        }
+	        return "all is in time";
+	    }
 	
     public String addFormation(Formation formation) {
         repository.save(formation);
