@@ -13,7 +13,6 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("IS ADMIN????", isAdmin())
     if (!isLogin()) {
       console.log("User not logged in. Redirecting to login...");
       navigate("/login");
