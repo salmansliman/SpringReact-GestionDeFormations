@@ -1,11 +1,9 @@
-// TeacherModal.jsx
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-
-const TeacherModal = ({ isOpen, onClose, onSubmit }) => {
+const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordError }) => {
   const [formData, setFormData] = useState({
     name: '',
     competences: '',
@@ -29,7 +27,6 @@ const TeacherModal = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    // Add validation logic here if needed
     onSubmit(formData);
     onClose();
   };
@@ -44,6 +41,7 @@ const TeacherModal = ({ isOpen, onClose, onSubmit }) => {
       onRequestClose={onClose}
       contentLabel="Add Teacher Modal"
       className="modal"
+      emailError={"please check you eamil"}
     >
       <h2 className="modal-title">Add Teacher</h2>
       <form className="modal-form">
@@ -80,8 +78,9 @@ const TeacherModal = ({ isOpen, onClose, onSubmit }) => {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="modal-input"
+          className={`modal-input ${emailError ? 'error' : ''}`}
         />
+        {emailError && <p className="error-message">{emailError}</p>}
 
         <label htmlFor="password" className="modal-label">
           Password:
@@ -112,8 +111,9 @@ const TeacherModal = ({ isOpen, onClose, onSubmit }) => {
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleInputChange}
-          className="modal-input"
+          className={`modal-input ${confirmPasswordError ? 'error' : ''}`}
         />
+        {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
 
         <div className="modal-buttons">
           <button type="button" onClick={handleSubmit} className="modal-save-btn">

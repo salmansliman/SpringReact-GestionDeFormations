@@ -1,81 +1,97 @@
-import { useState } from 'react';
-import './AddEntreprise.css'; 
+import React, { useEffect, useState } from "react";
+import "./AddEntreprise.css";
+import { Button } from "@material-ui/core";
+import Modal from "./EntrepriseModal";
+import axios from "../../api/axios";
 
-const AddEntreprise = () => {
 
-  const [nom, setNom] = useState('');
-  const [adresse, setAdresse] = useState('');
-  const [telephone, setTelephone] = useState('');
-  const [url, setUrl] = useState('');
-  const [email, setEmail] = useState('');
-
+const EntrepriseList = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [allEntreprises,setAllEntreprises]=useState([]);
+  const [refreshFlag, setRefreshFlag] = useState(false);
+  const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
+  const isAssistance=localStorage.getItem('role') == "ROLE_ASSISTANT"
+  const token = localStorage.getItem('token');
   const handleAddEntreprise = () => {
-    console.log('Nom:', nom);
-    console.log('Adresse:', adresse);
-    console.log('Téléphone:', telephone);
-    console.log('URL:', url);
-    console.log('Email:', email);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  useEffect(() => {
+    axios
+    .get("/entreprise/all",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json', // Set the content type if needed
+      },
+    })
+    .then(function(response){
+      console.log("alllll",response?.data)
+      setAllEntreprises(response?.data)
+    })
+    .catch(function(error){
+      console.error('Error fetching Entreprise',error);
+    });
+    console.log("All Entreprises in Dashboard",allEntreprises);
+  },[refreshFlag]);
+  const handleSubmitForm = (formData) => {
+    const requestBody={
+      nomEntreprise:formData.nomEntreprise,
+      adresseEntreprise:formData.adresseEntreprise,
+      telEntreprise:formData.telEntreprise,
+      url:formData.url,
+      emailEntreprise:formData.emailEntreprise
+    };
+    axios.post('/entreprise/newEntreprise', requestBody,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json', // Set the content type if needed
+      },
+    })
+    .then(response => {
+      console.log('Entreprise added successfully:', response.data);
+      setIsModalOpen(false); 
+      setRefreshFlag(!refreshFlag);
+    })
+    .catch(error => {
+      console.error('Error adding course:', error);
+    });
   };
 
   return (
-    <div className='containerAdd'>
-      <h2 className='headerAdd'>Add Entreprise</h2>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className='inputContainerAdd'>
-          <label htmlFor='nom'>Nom</label>
-          <input
-            type='text'
-            id='nom'
-            value={nom}
-            onChange={(e) => setNom(e.target.value)}
+    <div className="teacher--list">
+      <div className="list--header">
+        <h2>Companies</h2>
+        <button type="button" onClick={handleAddEntreprise} className="add-formation-button">
+          Add Company
+        </button>
+        {isModalOpen && (
+          <Modal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            onSubmit={handleSubmitForm}
           />
-        </div>
-        <div className='inputContainerAdd'>
-          <label htmlFor='adresse'>Adresse</label>
-          <input
-            type='text'
-            id='adresse'
-            value={adresse}
-            onChange={(e) => setAdresse(e.target.value)}
-          />
-        </div>
-        <div className='inputContainerAdd'>
-          <label htmlFor='telephone'>Téléphone</label>
-          <input
-            type='tel'
-            id='telephone'
-            value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
-          />
-        </div>
-        <div className='inputContainerAdd'>
-          <label htmlFor='url'>URL</label>
-          <input
-            type='url'
-            id='url'
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </div>
-        <div className='inputContainerAdd'>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            id='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <div className='bottomFormAdd'>
-            <button className='submitButton' type='submit' onClick={handleAddEntreprise}>
-              Add
-            </button>
-          </div>
-        </div>
-      </form>
+        )}
+      </div>
+      <div className="list--container">
+  {allEntreprises.map((Entreprise) => (
+    <div className="list" key={Entreprise.idEntreprise}>
+      <div className="teacher--detail">
+        <h2>{Entreprise.nomEntreprise}</h2>
+      </div>
+      <span>{Entreprise.adresseEntreprise}</span>
+      <span>{Entreprise.telEntreprise}</span>
+      <span>{Entreprise.url}</span>
+      <span>{Entreprise.emailEntreprise}</span>
+      <span className="teacher--todo">:</span>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };
 
-export default AddEntreprise;
+export default EntrepriseList;
