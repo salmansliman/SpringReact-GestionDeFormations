@@ -3,7 +3,10 @@ package com.manageformation.entities;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Formation {
 	
     @Id
@@ -37,7 +41,6 @@ public class Formation {
 	private String ville;
 	private String categorie;
 	@ManyToOne
-	@JsonIgnore
 	private Formater formater;
 	@ManyToOne
 	private Entreprise entreprise;
