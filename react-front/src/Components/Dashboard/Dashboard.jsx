@@ -7,7 +7,7 @@ import {
   useNavigate,
   Outlet,
 } from 'react-router-dom'
-import axios, { isLogin, isAdmin, getAllFormations } from '../../api/axios'
+import axios, { isLogin } from '../../api/axios'
 
 const Dashboard = () => {
   const navigate = useNavigate();
