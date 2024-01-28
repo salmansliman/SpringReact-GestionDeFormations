@@ -16,6 +16,7 @@ const Planification = () => {
     idFormation: '',
     dateDebut: '',
     dateEnd: '',
+    ville:'',
     formaterId: '',
     entrepriseId: '',
   });
@@ -30,17 +31,30 @@ const Planification = () => {
       .then(function (response) {
         console.log("alllll", response?.data);
         setAllFormations(response?.data);
+        const planifications = response.data;
+        const events = planifications.map((planification) => ({
+          id: planification.id,
+          title:planification.nomFormation,
+          start: planification.dateDebut,
+          end: planification.dateEnd,
+          allDay: true,
+         
+        }));
+        setCurrentEvents(events);
+        console.log("events",events);
       })
       .catch(function (error) {
         console.error('Error fetching Formations', error);
       });
   }, [refreshFlag]);
+  
 
   const handleSubmitForm = () => {
     const requestBody = {
       "id": parseInt(formData.idFormation, 10),
       "dateDebut": formData.dateDebut,
       "dateEnd": formData.dateEnd,
+      "ville":formData.ville,
       "formater": {
           "id": parseInt(formData.formaterId, 10)
       },

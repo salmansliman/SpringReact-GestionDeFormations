@@ -39,6 +39,12 @@ public class FormationController {
         return service.addFormation(formation);
     }
     
+    @GetMapping("/null")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    public List<Formation>findFormationsWithNullVille(){
+    	return service.findFormationsWithNullVille();
+    }
+    
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome Formation";

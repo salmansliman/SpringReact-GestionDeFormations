@@ -3,6 +3,7 @@ package com.manageformation.repositories;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.manageformation.entities.Entreprise;
 import com.manageformation.entities.Formater;
@@ -21,5 +22,7 @@ public interface FormationRepository extends JpaRepository<Formation, Integer> {
     List<Formation> findByDateDebutBetween(Date dateDebut,Date dateEnd);
     List<Formation> findByFormater(Formater formater);
     List<Formation> findByEntreprise(Entreprise entreprise);
+    @Query("SELECT f FROM Formation f WHERE f.ville IS NULL")
+    List<Formation> findFormationsWithNullVille();
 }
 

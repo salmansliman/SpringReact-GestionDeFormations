@@ -34,7 +34,6 @@ public class StudentService {
 		Student temp=sr.findById(id);
 		temp.setName(temp.getName());
 		temp.setEmail(temp.getEmail());
-		temp.setPassword(temp.getPassword());
 		temp.setStatue(true);
 		temp.setFormation(temp.getFormation());
 		sr.save(temp);

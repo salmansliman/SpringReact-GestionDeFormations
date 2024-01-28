@@ -25,9 +25,7 @@ public class Student {
 	private String name;
     @Column(unique = true)
     private String email;
-    private String password;
     private Boolean statue;
     @ManyToOne
-    @JsonIgnore
     private Formation formation;
 }
