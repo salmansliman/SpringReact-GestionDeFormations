@@ -1,9 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800&display=swap");
-* {
+*,
+*::after,
+*::before{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -22,11 +25,39 @@
   --normalFontSize: 0.93rem;
   --smallFontSize: 0.81rem;
   --smallestFontSize: 0.75rem;
+  --base-font: 'Raleway', sans-serif;
+  --clr-white: #fff;
+  --clr-black: #000;
+  --clr-orange: #fd9644;
+  --clr-dark: #1C1D1F;
+  --clr-purple: #A435F0;
+  --clr-pink: #E91E63;
+  --clr-alice-blue: #F8F9FB;
+  --spacing : 0.1rem;
+  --transition: all 300ms linear;
 }
 
 .flex {
   display: flex;
   align-items: center;
+}
+.flex-wrap{
+  flex-wrap: wrap;
+}
+.flex-column{
+  flex-direction: column;
+}
+.flex-center{
+  justify-content: center;
+}
+.flex-between{
+  justify-content: space-between;
+}
+.flex-start{
+  justify-content: flex-start;
+}
+.flex-end{
+  justify-content: flex-end;
 }
 
 .grid {
@@ -35,12 +66,43 @@
   gap: 1.5rem;
 }
 
+.h-100{height: 100%;}
+.w-100{width: 100%;}
+
+.d-block{
+  display: block;
+}
+.d-inline-block{
+  display: inline-block;
+}
+.d-inline{
+  display: inline;
+}
+
+.bg-white{background-color: var(--clr-white);}
+.bg-black{background-color: var(--clr-black);}
+.bg-transparent{background-color: transparent;}
+.bg-orange{background-color: var(--clr-orange);}
+.bg-dark{background-color: var(--clr-dark);}
+.bg-purple{background-color: var(--clr-purple);}
+.bg-alice-blue{background-color: var(--clr-alice-blue);}
+
 html {
   font-size: 90%;
 }
 
 a {
   text-decoration: none;
+  color: unset;
+}
+
+a:hover{
+  color: unset;
+}
+
+h1, h2, h3, h4, h5, h6{
+  letter-spacing: var(--spacing);
+  text-transform: capitalize;
 }
 
 li {
@@ -55,6 +117,13 @@ li {
 img, video {
   height: auto;
   width: 100%;
+  display: block;
+}
+
+.img-cover{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .message {
@@ -69,6 +138,20 @@ img, video {
   text-align: center;
   padding: 10px;
   border-radius: 5px;
+}
+
+button{
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+}
+
+input, textarea, select{
+  outline: 0;
+  border: none;
+  resize: none;
 }
 
 .btn {
@@ -89,172 +172,99 @@ img, video {
   background-color: var(--paleGreen);
 }
 
-.loginPage {
-  height: 100vh;
-  width: 100%;
-  margin: auto;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 7px 50px rgb(214, 223, 213);
-}
-.loginPage .container {
-  height: 75vh;
-  width: 60%;
-  margin: auto;
-  justify-content: space-between;
-  border-radius: 10px;
-  background-color: hsl(0, 0%, 91%);
-}
-.loginPage .container .videoDiv {
-  position: relative;
-  display: flex;
-  flex-basis: 50%;
-  width: 70%;
-  height: 100%;
-  padding: 0 1.5rem;
-  text-align: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: auto;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.loginPage .container .videoDiv video, .loginPage .container .videoDiv .footerDiv {
-  position: absolute;
-}
-.loginPage .container .videoDiv video {
-  height: 100%;
-  width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.loginPage .container .videoDiv .textDiv {
-  position: relative;
-}
-.loginPage .container .videoDiv .textDiv .title {
-  color: var(--whiteColor);
-  font-size: 41px;
-  font-weight: 800;
-}
-.loginPage .container .videoDiv .textDiv .paragraph {
-  padding: 1rem;
-  color: var(--blackColor);
-  font-weight: 800;
-}
-.loginPage .container .videoDiv .footerDiv {
-  bottom: 10px;
-  padding: 0 1rem;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.248);
-  left: 10px;
-  right: 10px;
-  justify-content: space-between;
-  -webkit-backdrop-filter: blur(1px);
-          backdrop-filter: blur(1px);
-  border-radius: 10px;
-}
-.loginPage .container .videoDiv .footerDiv .text {
-  color: var(--blackColor);
-  font-weight: 500;
-}
-.loginPage .container .videoDiv .footerDiv .btn {
-  background: var(--whiteColor);
-  color: var(--blackColor);
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 400;
-  transition: 0.3s ease;
-}
-.loginPage .container .videoDiv .footerDiv .btn:hover {
-  background: var(--hoverColor);
-  color: var(--blackColor);
-}
-.loginPage .container .formDiv {
-  flex-basis: 50%;
-  margin: auto;
-  flex-direction: column;
-  gap: 1.5rem;
-  transform: translateY(-1rem);
-  justify-content: space-between;
-}
-.loginPage .container .formDiv .headerDiv {
-  text-align: center;
-  padding: 1.5rem 0;
-}
-.loginPage .container .formDiv .headerDiv img {
-  width: 200px;
-  padding: 0.5rem;
-}
-.loginPage .container .formDiv .headerDiv h3 {
-  font-size: 25px;
-  color: var(--blackColor);
-  font-weight: 600;
-}
-.loginPage .container .formDiv .form {
-  gap: 1rem;
-}
-.loginPage .container .formDiv .form .inputDiv .icon {
-  color: var(--greyText);
-}
-.loginPage .container .formDiv .form .inputDiv input {
-  background: none;
-  outline: none;
-  border: none;
-  width: 200px;
-}
-.loginPage .container .formDiv .form .inputDiv label {
-  color: var(--blackColor);
-  font-weight: 400;
-  font-size: 14px;
-  padding: 0.5rem 0;
-  display: block;
-}
-.loginPage .container .formDiv .form .inputDiv .input {
-  gap: 0.5rem;
-  padding: 1rem;
-  background: var(--inputColor);
-  border-radius: 10px;
-}
-.loginPage .container .formDiv .form .btn {
-  padding: 0.8rem;
-  background: var(--primaryColor);
-  border-radius: 10px;
-  color: var(--whiteColor);
-  align-items: center;
-  margin: auto;
-  justify-content: center;
-  font-size: 16px;
-  width: 100%;
-  gap: 0.5rem;
-  transition: 0.3s ease;
-}
-.loginPage .container .formDiv .form .btn .icon {
-  font-size: 25px;
-  transition: 0.3s ease;
-}
-.loginPage .container .formDiv .form .btn:hover {
-  background: var(--hoverColor);
-  color: var(--blackColor);
-}
-.loginPage .container .formDiv .form .btn:hover .icon {
-  color: var(--blackColor);
-  transform: translateX(5px);
-}
-.loginPage .container .formDiv .form .forgotPassword {
-  font-size: 13px;
-  color: var(--blackColor);
-  opacity: 0.7;
-  text-align: center;
-}
-.loginPage .container .formDiv .form .forgotPassword a {
-  text-decoration: underline;
-  cursor: pointer;
-}
 body {
   background: #dde6ed;
   padding: 10px;
+}
+
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.8rem;
+}
+
+@media screen and (min-width: 768px){
+  .container{
+      padding: 0 3.4rem;
+  }
+}
+
+@media screen and (min-width: 1400px){
+  .container{
+      padding: 0 1rem;
+  }
+}
+
+.text{
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+/* text alignment */
+.text-center{text-align: center;}
+.text-start{text-align: left;}
+.text-end{text-align: right;}
+
+/* text transform */
+.text-uppercase{text-transform: uppercase;}
+.text-capitalize{text-transform: capitalize;}
+.text-justify{text-align: justify;}
+
+/* text colors */
+.text-white{color: var(--clr-white);}
+.text-black{color: var(--clr-black);}
+.text-orange{color: var(--clr-orange);}
+.text-dark{color: var(--clr-dark);}
+.text-purple{color: var(--clr-purple);}
+.text-pink{color: var(--clr-pink);}
+.text-alice-blue{color: var(--clr-alice-blue);}
+
+/* font weights */
+.fw-2{font-weight: 200;}
+.fw-3{font-weight: 300;}
+.fw-4{font-weight: 400;}
+.fw-5{font-weight: 500;}
+.fw-6{font-weight: 600;}
+.fw-7{font-weight: 700;}
+.fw-8{font-weight: 800;}
+
+/* font sizes */
+.fs-12{font-size: 12px;}
+.fs-13{font-size: 13px;}
+.fs-14{font-size: 14px;}
+.fs-15{font-size: 15px;}
+.fs-16{font-size: 16px;}
+.fs-17{font-size: 17px;}
+.fs-18{font-size: 18px;}
+.fs-19{font-size: 19px;}
+.fs-20{font-size: 20px;}
+.fs-21{font-size: 21px;}
+.fs-22{font-size: 22px;}
+.fs-23{font-size: 23px;}
+.fs-24{font-size: 24px;}
+.fs-25{font-size: 25px;}
+.fs-26{font-size: 26px;}
+
+/* letter spacing */
+.ls-1{letter-spacing: 1px;}
+.ls-2{letter-spacing: 2px;}
+
+/* margin & padding */
+.mx-auto{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* opacity */
+.opacity-09{opacity: 0.9;}
+.opacity-08{opacity: 0.8;}
+.opacity-07{opacity: 0.7;}
+.opacity-06{opacity: 0.6;}
+.opacity-05{opacity: 0.5;}
+
+/* animation and transition stopper */
+.resize-animation-stopper *{
+  animation: none!important;
+  transition: none!important;
 }
