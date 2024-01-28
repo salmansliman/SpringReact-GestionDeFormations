@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,6 @@ public class FormationService {
 		formation.setCout(temp.getCout());
 		formation.setObjectifs(temp.getObjectifs());
 		formation.setProgammeDetails(temp.getProgammeDetails());
-		formation.setVille(temp.getVille());
 		formation.setCategorie(temp.getCategorie());
 		formation.setFormater(formation.getFormater());
 		repository.save(formation);
@@ -94,4 +94,13 @@ public class FormationService {
 		return repository.findByFormater(formater);
 		
 	}
+	public List<String> getAllCategories() {
+        List<Formation> formations = repository.findAll();
+
+        return formations.stream()
+                .map(Formation::getCategorie)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
 }

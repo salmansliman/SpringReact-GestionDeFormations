@@ -48,10 +48,15 @@ const Sidebar = () => {
           <BiStats />
           Companies
         </Link>
-        <a href="#" className="item">
-          <BiHelpCircle />
-          Lorem Ipsum
-        </a>
+        <Link
+          to="/dashboard/Planification"
+          className={`item ${
+            location.pathname === "/dashboard/Planification" ? "active" : ""
+          }`}
+        >
+          <BiStats />
+          planifier
+        </Link>
       </div>
     </div>
   );

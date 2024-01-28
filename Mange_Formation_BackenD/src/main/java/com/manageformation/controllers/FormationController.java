@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,5 +87,10 @@ public class FormationController {
     @GetMapping("/refresh")
     public String deleteFormationEnd() {
     	return service.deleteFormationEnd();
+    }
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories() {
+        List<String> categories = service.getAllCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
