@@ -33,7 +33,7 @@ const NavbarWrapper = styled.nav`
   .navbar-brand {
     font-size: 23px;
     span {
-      color: var(--clr-orange);
+      color: var(--primaryColor);
     }
   }
 

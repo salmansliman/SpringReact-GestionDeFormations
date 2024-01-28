@@ -15,7 +15,17 @@ const Course = (props) => {
     formater
   } = props;
 
-
+  const truncateText = (text, maxLength) => {
+    if(!text) {
+        return;
+    }
+    const words = text.split(' ');
+    if (words.length > maxLength) {
+      return words.slice(0, maxLength).join(' ') + '...';
+    }
+    return text;
+  };
+  
   return (
     <CourseCard>
       <div className='item-body'>
@@ -30,7 +40,7 @@ const Course = (props) => {
           <strong>Cost:</strong> {cout} DH
         </p>
         <p className='item-details'>
-          <strong>Objectives:</strong> {objectifs}
+          <strong>Objectives:</strong> {truncateText(objectifs, 12)}
         </p>
         <p className='item-details'>
           <strong>Programme Details:</strong> {progammeDetails}

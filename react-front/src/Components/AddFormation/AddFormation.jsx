@@ -35,11 +35,14 @@ const FormationList = () => {
   const handleSubmitForm = (formData) => {
     const requestBody={
       nomFormation:formData.nomFormation,
-      nbrHeurs:formData.nbrHeurs,
+      nbrHeures:formData.nbrHeurs,
       cout:formData.cout,
       objectifs:formData.objectifs,
-      programmeDetails:formData.programmeDetails
+      progammeDetails:formData.programmeDetails
     };
+
+    console.log(requestBody)
+
     axios.post('/formation/newFormation', requestBody,{
       headers: {
         Authorization: `Bearer ${token}`,

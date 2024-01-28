@@ -7,8 +7,9 @@ import {TbWorld} from "react-icons/tb";
 import {FaShoppingCart} from "react-icons/fa";
 import {RiClosedCaptioningFill} from "react-icons/ri";
 import {BiCheck} from "react-icons/bi";
-import {Link} from "react-router-dom";
+import { IoTime, IoLocation } from "react-icons/io5";
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 const SingleCoursePage = () => {
   const { idFormation } = useParams();
@@ -32,13 +33,20 @@ const SingleCoursePage = () => {
     formater,
   } = single_course;
 
+  const truncateText = (text, maxLength) => {
+    const words = text.split(' ');
+    if (words.length > maxLength) {
+      return words.slice(0, maxLength).join(' ') + '...';
+    }
+    return text;
+  };
   
   return (
     <SingleCourseWrapper>
       <Navbar />
       <div className='course-intro mx-auto grid'>
         <div className='course-details'>
-          <div className='course-category bg-white text-dark text-capitalize fw-6 fs-12 d-inline-block'>{categorie}</div>
+          <div className='course-category bg-white text-dark text-capitalize fw-6 fs-12 d-inline-block'>{categorie || "Not Assigned"}</div>
           <div className='course-head'>
             <h5>{nomFormation}</h5>
           </div>
@@ -46,25 +54,29 @@ const SingleCoursePage = () => {
             <p className='course-para fs-18'>{progammeDetails}</p>
             <ul className='course-info'>
               <li>
-                <span className='fs-14'>Created by <span className='fw-6 opacity-08'>{ formater ? formater.name : "Not Assigned" }</span></span>
+                <span className='fs-14'>Teached by <span className='fw-6 opacity-08'>{ formater ? formater.name : "Not Assigned" }</span></span>
               </li>
               <li className='flex'>
-                <span><TbWorld /></span>
-                <span className='fs-14 course-info-txt fw-5'>{nbrHeures}</span>
+                <span><IoTime /></span>
+                <span className='fs-14 course-info-txt fw-5'>{nbrHeures} Hours</span>
               </li>
               <li className='flex'>
-                <span><RiClosedCaptioningFill /></span>
-                <span className='fs-14 course-info-txt fw-5'> test </span>
+                <span><IoLocation  /></span>
+                <span className='fs-14 course-info-txt fw-5'> {ville || "Not Assigned"} </span>
               </li>
             </ul>
           </div>
 
           <div className='course-foot'>
             <div className='course-price'>
-              <span className='new-price fs-26 fw-8'>${cout}</span>
+              <span className='new-price fs-26 fw-8'>{cout} DH</span>
             </div>
           </div>
-
+          <div className='enroll-btn flex'>
+            <Link to="/login" className='login-btn'>
+              Enroll
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -87,6 +99,24 @@ const SingleCoursePage = () => {
 const SingleCourseWrapper = styled.div`
   background: var(--clr-dark);
   color: var(--clr-white);
+  .enroll-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      margin-top: 20px;
+      margin-right: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--clr-white);
+      text-decoration: none;
+      border: 2px solid var(--clr-white);
+      background-color: transparent;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: var(--clr-white);
+        color: var(--clr-black);
+      }
+    }
 
   .course-intro{
     padding: 40px 16px;
