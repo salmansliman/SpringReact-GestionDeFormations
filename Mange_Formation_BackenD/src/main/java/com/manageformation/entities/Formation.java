@@ -47,4 +47,5 @@ public class Formation {
 	@OneToMany(mappedBy = "formation")
 	@JsonIgnore
 	List <Student> students;
+	
 }

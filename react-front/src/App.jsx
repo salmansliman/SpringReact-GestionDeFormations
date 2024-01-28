@@ -10,6 +10,7 @@ import AddEntreprise from './Components/AddEntreprise/AddEntreprise';
 import DashboardHome from './Components/Dashboard/DashboardHome';
 import AddFormation from './Components/AddFormation/AddFormation';
 import Register from './Components/Register/Register';
+import Planification from './Components/PlanifierFormation/Planification';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path='' element={<DashboardHome />} />
               <Route path="entreprise" element={<AddEntreprise/>} />
               <Route path="formations" element={<AddFormation/>} />
+              <Route path="Planification" element={<Planification/>} />
             </Route>
           </Routes>
           </BrowserRouter>
