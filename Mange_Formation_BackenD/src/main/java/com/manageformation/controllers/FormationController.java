@@ -93,4 +93,14 @@ public class FormationController {
         List<String> categories = service.getAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Formation> getFormationById(@PathVariable int id) {
+        Formation formation = service.getFormationById(id);
+
+        if (formation != null) {
+            return new ResponseEntity<>(formation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

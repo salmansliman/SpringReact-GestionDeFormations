@@ -1,10 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Hero from './Hero'
+import CourseList from './CourseList'
+import CategoriesList from './CategoriesList'
+import Navbar from './Navbar'
 
 const Landing = () => {
   return (
-    <div>Landing Page
-        <Link to="/login" className="item active">LOGIN</Link>
+    <div>
+        <Navbar />
+        <Hero />
+        <CategoriesList />
+        <CourseList />
     </div>
   )
 }

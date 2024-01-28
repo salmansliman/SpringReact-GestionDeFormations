@@ -14,9 +14,14 @@ const Content = () => {
   const [refreshFlag, setRefreshFlag] = useState(false);
   const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
 
-  const filteredFormations = allFormations.filter((formation) =>
-    formation.nomFormation.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredFormations = allFormations.filter((formation) => {
+    if (!formation.nomFormation) {
+      console.warn("Skipping undefined nomFormation:", formation);
+      return false;
+    }
+  
+    return formation.nomFormation.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
