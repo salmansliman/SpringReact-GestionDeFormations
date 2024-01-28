@@ -64,7 +64,7 @@ const EntrepriseList = () => {
     <div className="teacher--list">
       <div className="list--header">
         <h2>Companies</h2>
-        <button type="button" onClick={handleAddEntreprise} className="add-formation-button">
+        <button type="button" onClick={handleAddEntreprise} className="addButton">
           Add Company
         </button>
         {isModalOpen && (

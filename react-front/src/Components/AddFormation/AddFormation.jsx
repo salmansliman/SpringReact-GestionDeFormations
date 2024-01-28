@@ -64,7 +64,7 @@ const FormationList = () => {
     <div className="teacher--list">
       <div className="list--header">
         <h2>Formations</h2>
-        <button type="button" onClick={handleAddFormation} className="add-formation-button">
+        <button type="button" onClick={handleAddFormation} className="addButton">
           Add Formation
         </button>
         {isModalOpen && (
@@ -77,7 +77,7 @@ const FormationList = () => {
       </div>
       <div className="list--containerf">
   {allFormations.map((formation) => (
-    <div className="list" key={formation.id}>
+    <div className="listf" key={formation.id}>
       <div className="teacher--detail">
         <h2>{formation.nomFormation}</h2>
       </div>

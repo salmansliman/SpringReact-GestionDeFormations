@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import axios from "../../api/axios";
 import PlanificationModal from "./PlanificationModal"; // Assuming correct path
+import './planifier.css'
 
 const Planification = () => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -63,6 +64,8 @@ const Planification = () => {
       }
     };
 
+    console.log("REQUEST BODY",requestBody)
+
     axios.put('/formation/updateFormation', requestBody, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -89,27 +92,32 @@ const Planification = () => {
 
   return (
     <div>
-      <FullCalendar
-        height="75vh"
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-        }}
-        initialView="dayGridMonth"
-        editable={true}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        events={currentEvents}
-      />
-      
-      <button type="button" onClick={handleAddFormation} className="add-formation-button">
-        Add Formation
+      <button type="button" onClick={handleAddFormation} className="addButton">
+        Plan Formation
       </button>
+      {!isModalOpen && (
+        <div className="calendar">
+          <FullCalendar
+            height="auto"
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            headerToolbar={{
+              left: 'prev,next today',
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            events={currentEvents}
+          />
+        </div>
+      )}
+
       {isModalOpen && (
         <PlanificationModal
+        className="modalShow"
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onSubmit={handleSubmitForm}

@@ -55,7 +55,6 @@ public class FormationService {
 		formation.setObjectifs(temp.getObjectifs());
 		formation.setProgammeDetails(temp.getProgammeDetails());
 		formation.setCategorie(temp.getCategorie());
-		formation.setFormater(formation.getFormater());
 		repository.save(formation);
 		return "formation updated";
 }

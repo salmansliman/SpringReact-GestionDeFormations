@@ -14,23 +14,6 @@ const PlanificationModal = ({ isOpen, onClose, onSubmit, formData, setFormData }
   const [refreshFlag, setRefreshFlag] = useState(false);
 
   useEffect(() => {
-    // Fetch formations
-    axios.get('/formation/null', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        console.log('Formations null:', response.data);
-        setAllFormations(response?.data);
-        setIsModalOpen(false);
-        setRefreshFlag(!refreshFlag);
-      })
-      .catch(error => {
-        console.error('Error fetching formations:', error);
-      });
-
     // Fetch formateurs
     axios.get('/users/getAllFormaters', {
       headers: {
@@ -62,7 +45,26 @@ const PlanificationModal = ({ isOpen, onClose, onSubmit, formData, setFormData }
       .catch(error => {
         console.error('Error fetching entreprises:', error);
       });
-  }, [refreshFlag, token]);
+  }, []);
+
+  useEffect(() => {
+    axios.get('/formation/null', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        console.log('Formations null:', response.data);
+        setAllFormations(response?.data);
+        setIsModalOpen(false);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch(error => {
+        console.error('Error fetching formations:', error);
+      });
+
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -104,6 +106,7 @@ const PlanificationModal = ({ isOpen, onClose, onSubmit, formData, setFormData }
       onRequestClose={handleClose}
       contentLabel="Add Formation Modal"
       className="modal"
+      ariaHideApp={false}
     >
       <h2 className="modal-title">Update Formation</h2>
       <form className="modal-form">
