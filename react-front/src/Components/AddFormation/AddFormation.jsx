@@ -38,7 +38,8 @@ const FormationList = () => {
       nbrHeures:formData.nbrHeurs,
       cout:formData.cout,
       objectifs:formData.objectifs,
-      progammeDetails:formData.programmeDetails
+      progammeDetails:formData.programmeDetails,
+      categorie:formData.categorie
     };
 
     console.log(requestBody)

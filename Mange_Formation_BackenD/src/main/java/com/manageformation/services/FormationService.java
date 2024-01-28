@@ -65,6 +65,9 @@ public class FormationService {
 	public List<Formation> findFormationByVille(String ville){
 		return repository.findByVille(ville);
 	}
+	public List<Formation>findFormationsWithNullVille(){
+		return repository.findFormationsWithNullVille();
+	}
 	public List<Formation> findFormationByCategorie(String categorie){
 		return repository.findByCategorie(categorie);
 	}

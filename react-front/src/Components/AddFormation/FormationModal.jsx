@@ -10,6 +10,7 @@ const FormationModal = ({ isOpen, onClose, onSubmit }) => {
     cout: '',
     objectifs: '',
     programmeDetails: '',
+    categorie:'',
   });
 
   const handleInputChange = (e) => {
@@ -99,6 +100,20 @@ const FormationModal = ({ isOpen, onClose, onSubmit }) => {
             className="modal-input"
           />
         </div>
+        <label htmlFor="categorie" className="modal-label">
+          categorie:
+        </label>
+        <div className="modal-label">
+          <input
+            type="text"
+            id="pcategorie"
+            name="categorie"
+            value={formData.categorie}
+            onChange={handleInputChange}
+            className="modal-input"
+          />
+        </div>
+
 
         <div className="modal-buttons">
           <button type="button" onClick={handleSubmit} className="modal-save-btn">
