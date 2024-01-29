@@ -1,0 +1,20 @@
+@media screen and (max-width: 802px) {
+  .loginPage .container, .registerPage .container {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .loginPage .videoDiv, .registerPage .videoDiv {
+    width: 100%;
+  }
+  .loginPage .videoDiv .textDiv .title, .registerPage .videoDiv .textDiv .title {
+    font-size: 20px;
+  }
+  .loginPage .videoDiv .textDiv .p, .registerPage .videoDiv .textDiv .p {
+    padding: 1rem;
+  }
+  .loginPage .videoDiv .footerDiv .text, .registerPage .videoDiv .footerDiv .text {
+    font-size: 12px;
+  }
+}
