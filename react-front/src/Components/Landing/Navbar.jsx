@@ -2,8 +2,10 @@ import React from 'react';
 import styled from "styled-components";
 import { MdMenu, MdShoppingCart } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { isLogin } from '../../api/axios';
 
 const Navbar = () => {
+  const isLoggedIn = isLogin()
   return (
     <NavbarWrapper className="bg-white flex">
       <div className='container w-100'>
@@ -13,12 +15,23 @@ const Navbar = () => {
           </Link>
 
           <div className='navbar-btns flex'>
+            {!isLoggedIn ? (
+              <>
             <Link to="/login" className='login-btn'>
-              Login
-            </Link>
-            <Link to="/register" className='register-btn'>
-              Register as Teacher
-            </Link>
+            Login
+          </Link>
+          <Link to="/register" className='register-btn'>
+            Register as Teacher
+          </Link>
+          </>
+            ) : (
+              <>
+          <Link to="/dashboard" className='register-btn'>
+            Dashboard
+          </Link>
+          </>
+            )
+            }
           </div>
         </div>
       </div>

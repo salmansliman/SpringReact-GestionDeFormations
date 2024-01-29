@@ -25,7 +25,7 @@ const Sidebar = () => {
     <div className="menu">
       <div className="logo">
         <BiBookAlt className="logo-icon" />
-        <h2>Manage Formations</h2>
+        <Link to={"/"} className="page-title">Manage Formations</Link>
       </div>
 
       <div className="menu--list">
