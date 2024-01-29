@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
@@ -41,13 +42,11 @@ public class Formation {
 	private Date dateEnd;
 	private String ville;
 	private String categorie;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "formater_id")
+	@ManyToOne
 	private Formater formater;
 	@ManyToOne
 	private Entreprise entreprise;
 	@OneToMany(mappedBy = "formation")
 	@JsonIgnore
 	List <Student> students;
-	
 }

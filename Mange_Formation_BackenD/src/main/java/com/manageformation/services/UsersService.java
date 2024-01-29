@@ -35,7 +35,7 @@ public class UsersService {
     
     @Autowired
     private FormationRepository formationRepository;
-
+    
     @PostConstruct
     public void add() {
     	UserInfo userInfo= new UserInfo();
@@ -115,7 +115,7 @@ public class UsersService {
     	fr.save(formater);
     	return "formater named "+formater.getName()+" updated";
     }
-    public List<Formater> getAllFormaters(){
+    public List<Formater> getAllFormaters(){    	
     	return fr.findAll();
     }
 }

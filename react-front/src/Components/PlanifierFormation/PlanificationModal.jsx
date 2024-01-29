@@ -73,6 +73,7 @@ const PlanificationModal = ({ isOpen, onClose, onSubmit, formData, setFormData }
       [name]: value,
     }));
   };
+  
 
   const handleSubmit = () => {
     const formattedData = {
@@ -167,20 +168,21 @@ const PlanificationModal = ({ isOpen, onClose, onSubmit, formData, setFormData }
         <label htmlFor="formateurId" className="modal-label">
           Formateur:
         </label>
-        <select
-          id="formateurId"
-          name="formateurId"
-          value={formData.formateurId}
-          onChange={handleInputChange}
-          className="modal-input"
-        >
-          <option value="">Select Formateur</option>
-          {allFormateurs.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
+          <select
+                id="formaterId"
+                name="formaterId"
+                value={formData.formaterId}
+                onChange={handleInputChange}
+                className="modal-input"
+              >
+                <option value="">Select Formateur</option>
+                {allFormateurs.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+    ))}
+  </select>
+
 
         <label htmlFor="entrepriseId" className="modal-label">
           Entreprise:

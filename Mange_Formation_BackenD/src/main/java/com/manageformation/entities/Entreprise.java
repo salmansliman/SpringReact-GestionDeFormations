@@ -27,6 +27,6 @@ public class Entreprise {
 	private String emailEntreprise;
 	@OneToMany(mappedBy = "entreprise")
 	@JsonIgnore
-	List <Formation> formation;
+	private List<Formation> formation;
 
 }

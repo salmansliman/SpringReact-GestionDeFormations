@@ -102,15 +102,7 @@ const TeacherList = () => {
       <span>{teacher.competence}</span>
       <span className="teacher--todo">:</span>
 
-      {/* Display the names of formations */}
-      <div className="formations">
-        <p>Formations:</p>
-        <ul>
-          {teacher.formation.map((formation) => (
-            <li>{formation.nomFormation}</li>
-          ))}
-        </ul>
-      </div>
+      
     </div>
   ))}
 </div>
