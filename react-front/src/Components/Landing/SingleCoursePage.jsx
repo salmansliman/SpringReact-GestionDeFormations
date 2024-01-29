@@ -1,26 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
 import { useCoursesContext } from '../../context/courses_context';
-import {MdInfo} from "react-icons/md";
-import {TbWorld} from "react-icons/tb";
-import {FaShoppingCart} from "react-icons/fa";
-import {RiClosedCaptioningFill} from "react-icons/ri";
 import {BiCheck} from "react-icons/bi";
 import { IoTime, IoLocation } from "react-icons/io5";
 import Navbar from './Navbar';
-import { Link } from 'react-router-dom';
+import StudentEnrollmentModal from './StudentEnrollmentModal';
+import axios from '../../api/axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SingleCoursePage = () => {
   const { idFormation } = useParams();
   const { fetchSingleCourse, single_course } = useCoursesContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (idFormation) {
-      fetchSingleCourse(idFormation);
-    }
-  }, [idFormation, fetchSingleCourse]);
-  
+  const handleEnrollClick = () => {
+    console.log("Opening modal...")
+    setIsModalOpen(true);
+  };
   const {
     idFormation: id,
     nomFormation,
@@ -33,14 +31,41 @@ const SingleCoursePage = () => {
     formater,
   } = single_course;
 
-  const truncateText = (text, maxLength) => {
-    const words = text.split(' ');
-    if (words.length > maxLength) {
-      return words.slice(0, maxLength).join(' ') + '...';
+  useEffect(() => {
+    if (idFormation) {
+      fetchSingleCourse(idFormation);
     }
-    return text;
+  }, [idFormation, fetchSingleCourse]);
+    
+  const handleSubmitEnrollForm = (formData) => {
+    const enrollmentData = {
+      "name": formData.name,
+      "email": formData.email,
+      "formation": {
+          "id": parseInt(idFormation, 10)
+      }
+    };
+
+    console.log(enrollmentData)
+    
+    axios
+    .post('/student/new', enrollmentData)
+    .then((response) => {
+      console.log('Enrollment successful:', response.data);
+      setIsModalOpen(false);
+      toast.success('Enrollment successful');
+    })
+    .catch((error) => {
+      console.error('Error enrolling student:', error);
+
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('Error enrolling student');
+      }
+    });
   };
-  
+
   return (
     <SingleCourseWrapper>
       <Navbar />
@@ -72,11 +97,9 @@ const SingleCoursePage = () => {
               <span className='new-price fs-26 fw-8'>{cout} DH</span>
             </div>
           </div>
-          <div className='enroll-btn flex'>
-            <Link to="/login" className='login-btn'>
-              Enroll
-            </Link>
-          </div>
+          <button className='enroll-btn flex' onClick={handleEnrollClick}>
+            Enroll
+          </button>
         </div>
       </div>
 
@@ -90,8 +113,16 @@ const SingleCoursePage = () => {
                   </li>
           </ul>
         </div>
-
       </div>
+
+      {isModalOpen && (
+        <StudentEnrollmentModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onSubmit={handleSubmitEnrollForm}
+/>
+)}
+      <ToastContainer />
     </SingleCourseWrapper>
   )
 }

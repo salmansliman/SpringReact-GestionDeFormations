@@ -12,7 +12,6 @@
     margin: auto;
     justify-content: space-between;
     border-radius: 10px;
-    background-color: hsl(0, 0%, 91%);
   }
   .loginPage .container .videoDiv {
     position: relative;
@@ -164,3 +163,32 @@
     cursor: pointer;
   }
   
+  
+@media screen and (max-width: 802px){
+  .loginPage, .registerPage {
+      .container{
+          height: 100%;
+          width: 100%;
+          flex-direction: column;
+          padding: 1.5rem;
+      }
+
+      .videoDiv{
+        width: 100%;
+        .textDiv{
+          .title{
+            font-size: 20px;
+          }
+
+          .p{
+            padding: 1rem;
+          }
+        }
+
+        .footerDiv{
+          gap: 1rem;
+          transform: translateY(-.5rem);
+        }
+      }
+  }
+}

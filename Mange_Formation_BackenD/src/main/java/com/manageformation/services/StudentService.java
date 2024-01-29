@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.manageformation.entities.Formation;
@@ -18,14 +20,15 @@ public class StudentService {
 	@Autowired
 	FormationRepository fr;
 	
-	public String AddStudent(Student student) {
-		try {
-		student.setStatue(false);
-		sr.save(student);
-		}catch (DataIntegrityViolationException e) {
-            return "Error: Email already exists. Please choose a different email.";
-        }
-		return "student added";
+	public ResponseEntity<String> addStudent(Student student) {
+	    try {
+	        student.setStatue(false);
+	        sr.save(student);
+	        return ResponseEntity.ok("Student added");
+	    } catch (DataIntegrityViolationException e) {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                .body("Error: Email already exists. Please choose a different email.");
+	    }
 	}
 	public Student getStudentById(int id) {
 		return sr.findById(id);
