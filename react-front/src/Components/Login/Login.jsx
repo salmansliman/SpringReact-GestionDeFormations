@@ -3,7 +3,6 @@ import './Login.css'
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
 import { Link, NavLink, Navigate } from 'react-router-dom'
-import logo from '../../LoginAssets/uni.png'
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
@@ -11,6 +10,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from './context/AuthProvider';
 import axios, { isLogin } from '../../api/axios'
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Landing/Navbar'
 
 const LOGIN_URL = '/users/authenticate';
 
@@ -81,6 +81,7 @@ const Login = () => {
     };
 
     return (
+    <>
     <div className='loginPage flex'>
         <div className='container flex'>
             <div className='videoDiv'>
@@ -125,6 +126,7 @@ const Login = () => {
             </div>
         </div>
     </div>
+    </>
   )
 }
 

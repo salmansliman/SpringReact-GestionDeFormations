@@ -12,7 +12,6 @@
     margin: auto;
     justify-content: space-between;
     border-radius: 10px;
-    background-color: hsl(0, 0%, 91%);
   }
   .registerPage .container .videoDiv {
     position: relative;
