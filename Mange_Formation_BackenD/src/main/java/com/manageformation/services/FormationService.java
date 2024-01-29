@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.manageformation.entities.Entreprise;
 import com.manageformation.entities.Formater;
 import com.manageformation.entities.Formation;
+import com.manageformation.repositories.FormaterRepository;
 import com.manageformation.repositories.FormationRepository;
 
 
@@ -23,6 +24,9 @@ public class FormationService {
 	
 	@Autowired
 	private FormationRepository repository;
+	@Autowired
+	private FormaterRepository fr;
+	
 	
 	   public String deleteFormationEnd() {
 	        List<Formation> formations = repository.findAll();
