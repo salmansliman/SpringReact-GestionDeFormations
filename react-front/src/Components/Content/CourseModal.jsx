@@ -11,7 +11,25 @@ const CourseModal = ({ isOpen, onClose, onSubmit }) => {
     cost: '',
     goals: '',
     details: '',
+    categorie:'',
   });
+  const categories = [
+    'Computer Science',
+    'Mathematics',
+    'Physics',
+    'Engineering',
+    'Business and Finance',
+    'Health and Medicine',
+    'Language and Literature',
+    'Social Sciences',
+    'Art and Design',
+    'Environmental Science',
+    'History',
+    'Music and Performing Arts',
+    'Personal Development',
+    'Technology and Innovation',
+    'Education and Teaching',
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -109,6 +127,23 @@ const CourseModal = ({ isOpen, onClose, onSubmit }) => {
           onChange={handleInputChange}
           className="modal-input"
         />
+          <label htmlFor="categorie" className="modal-label">
+          Categorie:
+        </label>
+        <select
+          id="categorie"
+          name="categorie"
+          value={formData.categorie}
+          onChange={handleInputChange}
+          className="modal-input"
+        >
+          <option value="" disabled>Select a category</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
 
         <div className="modal-buttons">
           <button type="button" onClick={handleSubmit} className="modal-save-btn">

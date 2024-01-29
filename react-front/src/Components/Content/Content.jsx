@@ -59,6 +59,7 @@ const Content = () => {
       cout: parseFloat(formData.cost), 
       objectifs: formData.goals,
       progammeDetails: formData.details,
+      categorie:formData.categorie
     };
     const token = localStorage.getItem('token');
 

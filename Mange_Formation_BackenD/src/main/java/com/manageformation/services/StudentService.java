@@ -30,6 +30,12 @@ public class StudentService {
 	                .body("Error: Email already exists. Please choose a different email.");
 	    }
 	}
+	  public List<Student> getStudentsWithFalseStatue() {
+	        return sr.findByStatueFalse();
+	    }
+	  public List<Student> getStudentsWithTrueStatue() {
+	        return sr.findByStatueTrue();
+	    }
 	public Student getStudentById(int id) {
 		return sr.findById(id);
 	}
@@ -52,6 +58,7 @@ public class StudentService {
     	sr.save(student);
     	return "student named "+student.getName()+"updated";
     }
+   
 }
 	
 

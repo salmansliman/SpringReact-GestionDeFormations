@@ -57,6 +57,24 @@ const Sidebar = () => {
           <BiStats />
           planifier
         </Link>
+        <Link
+          to="/dashboard/Students"
+          className={`item ${
+            location.pathname === "/dashboard/Students" ? "active" : ""
+          }`}
+        >
+          <BiStats />
+          Wait List 
+        </Link>
+        <Link
+          to="/dashboard/Accepted"
+          className={`item ${
+            location.pathname === "/dashboard/Accepted" ? "active" : ""
+          }`}
+        >
+          <BiStats />
+          Accepted List 
+        </Link>
       </div>
     </div>
   );
