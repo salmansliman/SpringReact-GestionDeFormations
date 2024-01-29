@@ -82,7 +82,6 @@ const Login = () => {
 
     return (
     <>
-    <Navbar />
     <div className='loginPage flex'>
         <div className='container flex'>
             <div className='videoDiv'>

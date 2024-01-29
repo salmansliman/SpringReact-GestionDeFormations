@@ -12,7 +12,10 @@ const Content = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
+  const isAdmin = getRole() == "Admin" 
+  const isAssistant = getRole() == "Assistant" 
+  const isFormateur = getRole() == "Formateur" 
+
 
   const filteredFormations = allFormations.filter((formation) => {
     if (!formation.nomFormation) {
@@ -99,7 +102,10 @@ const Content = () => {
         </div>
       </div>
       <Card formations={filteredFormations} />
-      <TeacherList />
+      {(isAdmin || isAssistant) && (
+        <TeacherList />
+      )}
+
       <CourseModal isOpen={isCourseModalOpen} onClose={handleCloseCourseModal} onSubmit={handleAddCourse} />
     </div>
   );

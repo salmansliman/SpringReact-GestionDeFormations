@@ -19,11 +19,12 @@ const courses = [
 
 const Profile = () => {
     const userRole = getRole()
-    const hasCourses = getRole() == "ROLE_FORMATER" 
+    const hasCourses = getRole() == "Formateur" 
     const userEmail = localStorage.getItem('user')
 
     useEffect(() => {
         console.log(window.location.pathname);
+        console.log(hasCourses)
       }, []);
     
   return (

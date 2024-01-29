@@ -103,7 +103,6 @@ const Register = () => {
 
     return (
         <>
-            <Navbar />
     <div className='registerPage flex'>
         <div className='container flex'>
             <div className='videoDiv'>
