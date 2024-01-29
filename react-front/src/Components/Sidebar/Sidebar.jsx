@@ -71,6 +71,7 @@ const Sidebar = () => {
           <FaCalendarAlt />
           Calendar
         </Link>
+        {(isAdmin || isAssistant) && (
 
             <Link
               to="/dashboard/Students"
@@ -81,8 +82,8 @@ const Sidebar = () => {
               <FaUserClock />
               Students WaitList
             </Link>
+        )}
 
-{(isAdmin || isAssistant) && (
             <>
             <Link
               to="/dashboard/Accepted"
@@ -94,7 +95,6 @@ const Sidebar = () => {
               Accepted Students
             </Link>
           </>
-        )}
       </div>
     </div>
   );

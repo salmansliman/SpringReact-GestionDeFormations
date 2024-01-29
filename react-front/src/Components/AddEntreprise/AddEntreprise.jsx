@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./AddEntreprise.css";
 import { Button } from "@material-ui/core";
 import Modal from "./EntrepriseModal";
-import axios from "../../api/axios";
-
+import axios, {getRole} from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const EntrepriseList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allEntreprises,setAllEntreprises]=useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
-  const isAssistance=localStorage.getItem('role') == "ROLE_ASSISTANT"
+  const isFormateur = getRole() == "Formateur" 
   const token = localStorage.getItem('token');
+  const navigate = useNavigate()
+
   const handleAddEntreprise = () => {
     setIsModalOpen(true);
   };
@@ -20,6 +21,9 @@ const EntrepriseList = () => {
     setIsModalOpen(false);
   };
   useEffect(() => {
+    if(isFormateur) {
+      navigate("/dashboard")
+    }
     axios
     .get("/entreprise/all",{
       headers: {

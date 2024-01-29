@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./AddFormation.css";
 import { Button } from "@material-ui/core";
 import Modal from "./FormationModal";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const FormationList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allFormations,setAllFormations]=useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
-  const isAssistance=localStorage.getItem('role') == "ROLE_ASSISTANT"
+  const isAdmin = getRole() == "Admin"
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
   const handleAddFormation = () => {
     setIsModalOpen(true);
   };
@@ -20,6 +22,10 @@ const FormationList = () => {
     setIsModalOpen(false);
   };
   useEffect(() => {
+    if(!isAdmin) {
+      navigate("/dashboard");
+    }
+
     axios
     .get("/formation/all",{
     })

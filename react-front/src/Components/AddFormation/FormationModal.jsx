@@ -1,70 +1,152 @@
-import React, { useEffect } from 'react';
-import { BiLogoApple } from 'react-icons/bi';
-import { FaLaptop, FaCalculator, FaFlask, FaTools, FaBriefcase, FaMedkit, FaBook, FaUsers, FaPalette, FaLeaf, FaHistory, FaMusic, FaChalkboardTeacher, FaMicrochip, FaLightbulb, FaGraduationCap } from 'react-icons/fa';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import './Modal.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const getIconByCategory = (category) => {
-  switch (category) {
-    case 'Computer Science':
-      return <FaLaptop />;
-    case 'Mathematics':
-      return <FaCalculator />;
-    case 'Physics':
-      return <FaFlask />;
-    case 'Engineering':
-      return <FaTools />;
-    case 'Business and Finance':
-      return <FaBriefcase />;
-    case 'Health and Medicine':
-      return <FaMedkit />;
-    case 'Language and Literature':
-      return <FaBook />;
-    case 'Social Sciences':
-      return <FaUsers />;
-    case 'Art and Design':
-      return <FaPalette />;
-    case 'Environmental Science':
-      return <FaLeaf />;
-    case 'History':
-      return <FaHistory />;
-    case 'Music and Performing Arts':
-      return <FaMusic />;
-    case 'Personal Development':
-      return <FaChalkboardTeacher />;
-    case 'Technology and Innovation':
-      return <FaMicrochip />;
-    case 'Education and Teaching':
-      return <FaGraduationCap />;
-    default:
-      return <BiLogoApple />;
-  }
-};
+const FormationModal = ({ isOpen, onClose, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    nomFormation: '',
+    nbrHeurs: '',
+    cout: '',
+    objectifs: '',
+    programmeDetails: '',
+    categorie:'',
+  });
+  const categories = [
+    'Computer Science',
+    'Mathematics',
+    'Physics',
+    'Engineering',
+    'Business and Finance',
+    'Health and Medicine',
+    'Language and Literature',
+    'Social Sciences',
+    'Art and Design',
+    'Environmental Science',
+    'History',
+    'Music and Performing Arts',
+    'Personal Development',
+    'Technology and Innovation',
+    'Education and Teaching',
+  ];
 
-const Card = ({ formations = [] }) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  useEffect(() => {
-    console.log("HHH",formations)
-  }, [])
+  const handleSubmit = () => {
+    onSubmit(formData);
+    onClose();
+  };
+
+  const handleClose = () => {
+    onClose();
+  };
 
   return (
-    <div className='card--container'>
-      {formations.length === 0 ? (
-        <div className="empty-state">
-          <p>Nothing to show...</p>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      contentLabel="Add Formation Modal"
+      className="modal"
+    >
+      <h2 className="modal-title">Add Formation</h2>
+      <form className="modal-form">
+        <label htmlFor="nomFormation" className="modal-label">
+          Name:
+        </label>
+        <input
+          type="text"
+          id="nomFormation"
+          name="nomFormation"
+          value={formData.nomFormation}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="nbrHeurs" className="modal-label">
+          nbrHeurs:
+        </label>
+        <input
+          type="number"
+          id="nbrHeurs"
+          name="nbrHeurs"
+          value={formData.nbrHeurs}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="cout" className="modal-label">
+          Cout:
+        </label>
+        <input
+          type="number"
+          id="cout"
+          name="cout"
+          value={formData.cout}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="objectifs" className="modal-label">
+          objectifs:
+        </label>
+        <input
+          type="text"
+          id="objectifs"
+          name="objectifs"
+          value={formData.objectifs}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="programmeDetails" className="modal-label">
+          programmeDetails:
+        </label>
+        <div className="modal-label">
+          <input
+            type="text"
+            id="programmeDetails"
+            name="programmeDetails"
+            value={formData.programmeDetails}
+            onChange={handleInputChange}
+            className="modal-input"
+          />
         </div>
-      ) : (
-        formations.map((item) => (
-          <div className="card" key={item.id}>
-            <div className="card--cover">
-              {getIconByCategory(item.categorie)}
-            </div>
-            <div className="card--title">
-              <h2>{item.nomFormation}</h2>
-            </div>
-          </div>
-        ))
-      )}
-    </div>
+        <label htmlFor="categorie" className="modal-label">
+          Categorie:
+        </label>
+        <select
+          id="categorie"
+          name="categorie"
+          value={formData.categorie}
+          onChange={handleInputChange}
+          className="modal-input"
+        >
+          <option value="" disabled>Select a category</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+
+
+        <div className="modal-buttons">
+          <button type="button" onClick={handleSubmit} className="modal-save-btn">
+            Save
+          </button>
+          <button type="button" onClick={handleClose} className="modal-cancel-btn">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
 };
 
-export default Card;
+export default FormationModal;

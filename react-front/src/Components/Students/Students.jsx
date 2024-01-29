@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -8,11 +9,14 @@ const Students = () => {
   const [studentFilter, setStudentFilter] = useState("");
   const [formationFilter, setFormationFilter] = useState("");
   const [uniqueFormationNames, setUniqueFormationNames] = useState([]);
-  const isAdmin = localStorage.getItem('role') === "ROLE_ADMIN";
-  const isAssistance = localStorage.getItem('role') === "ROLE_ASSISTANT";
+  const isFormateur = getRole() == "Formateur"
   const token = localStorage.getItem('token');
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if(isFormateur) {
+      navigate("/dashboard")
+    }
     axios
       .get("/student/false", {
         headers: {
