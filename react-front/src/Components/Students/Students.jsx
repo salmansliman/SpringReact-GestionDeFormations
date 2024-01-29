@@ -104,12 +104,12 @@ const Students = () => {
               </div>
               <span>{student.statue.toString()}</span>
               <span>{student.formation.nomFormation}</span>
-              <span className="teacher--todo">:</span>
+              <button className="teacher--todo">Delete</button>
               <button
                 onClick={() => handleButtonClick(student.id)}
                 className="student-button"
               >
-                accept
+                Accept
               </button>
             </div>
           ))}

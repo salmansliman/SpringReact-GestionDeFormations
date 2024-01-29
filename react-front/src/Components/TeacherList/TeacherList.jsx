@@ -12,6 +12,7 @@ const TeacherList = () => {
   const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
   const isAssistance=localStorage.getItem('role') == "ROLE_ASSISTANT"
   const token = localStorage.getItem('token');
+  
   const handleAddTeacher = () => {
     setIsModalOpen(true);
   };
@@ -19,6 +20,7 @@ const TeacherList = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   useEffect(() => {
     axios
     .get("/users/getAllFormaters",{
@@ -36,6 +38,7 @@ const TeacherList = () => {
     });
     console.log("All Teachers in Dashboard",allTeachers);
   },[refreshFlag]);
+
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -75,15 +78,19 @@ const TeacherList = () => {
 
   };
 
-  const handleDeleteTeacher = () => {
-    axios.post('/users/deleteFormater',{
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    })
+  const handleDeleteTeacher = (idFormateur) => {
+    const data={
+      id: idFormateur
+    }
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }    
+
+    axios.delete('/users/deleteFormater', {headers, data})
     .then(response => {
       console.log('Teacher deleted successfully:', response.data);
+      setRefreshFlag(!refreshFlag);
     })
     .catch(error => {
       console.error('Error deleting teacher:', error);
@@ -115,7 +122,7 @@ const TeacherList = () => {
                 <h2>{teacher.name}</h2>
               </div>
               <span>{teacher.competence}</span>
-              <button className="teacher--todo" onClick={handleDeleteTeacher}>Delete</button>
+            <button className="teacher--todo" onClick={() => handleDeleteTeacher(teacher.id)}>Delete</button>
             </div>
           ))}
         </div>

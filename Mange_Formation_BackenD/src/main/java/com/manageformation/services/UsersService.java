@@ -94,9 +94,11 @@ public class UsersService {
         }
         return "assistant added to system";
     }
+    
     public String findRoleByEmail(String email) {
     	return repository.findRoleByEmail(email);
     }
+    
     public void DeleteFormater(Formater formater) {
     	List <Formation> formations = formationRepository.findByFormater(formater);
     	for(Formation formation : formations) {

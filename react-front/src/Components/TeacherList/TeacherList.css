@@ -63,3 +63,18 @@
     border-radius: 10px;
     transition: 0.3s ease-in-out;
 }
+
+.student-button {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.teacher--todo:hover {
+    background-color: white;
+    color: green;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}

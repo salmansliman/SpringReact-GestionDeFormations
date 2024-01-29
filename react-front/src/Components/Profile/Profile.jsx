@@ -2,7 +2,7 @@ import ProfileHeader from './ProfileHeader'
 import'./Profile.css'
 import { BiBook } from "react-icons/bi"
 import React, { useEffect } from 'react';
-import { getRole } from '../../api/axios';
+import axios, { getRole } from '../../api/axios';
 
 const courses = [
     {
@@ -26,6 +26,15 @@ const Profile = () => {
         console.log(window.location.pathname);
         console.log(hasCourses)
       }, []);
+
+      axios.get('/users/getFormaterByEmail', userEmail)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+          console.error('Error fetching formateurs:', error);
+        });
+      
     
   return (
     <div className='profile'>
