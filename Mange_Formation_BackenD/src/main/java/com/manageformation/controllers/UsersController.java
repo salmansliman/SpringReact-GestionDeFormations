@@ -101,5 +101,10 @@ public class UsersController {
     	return service.getAllFormaters();
     }
     
+    @GetMapping("/getFormaterByEmail")
+    public Formater findFormaterById(@RequestBody String email) {
+    	return service.FindByEmail(email);
+    }
+    
    
 }

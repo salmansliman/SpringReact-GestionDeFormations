@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.manageformation.entities.Entreprise;
 import com.manageformation.entities.Formater;
 import com.manageformation.entities.Formation;
+import com.manageformation.entities.Student;
 import com.manageformation.repositories.FormaterRepository;
 import com.manageformation.repositories.FormationRepository;
+import com.manageformation.repositories.StudentRepository;
 
 
 @Service
@@ -24,8 +26,9 @@ public class FormationService {
 	
 	@Autowired
 	private FormationRepository repository;
+	
 	@Autowired
-	private FormaterRepository fr;
+	private StudentRepository sr;
 	
 	
 	   public String deleteFormationEnd() {
@@ -108,5 +111,15 @@ public class FormationService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+	public String deleteFormationById(int id) {
+		repository.deleteById(id);
+		List <Student> etudiants = sr.findByFormationId(id);
+		for(Student s : etudiants) {
+			s.setStatue(false);
+			s.setFormation(null);
+		}
+		
+		return "formation with id :"+id+"deleted";
+	}
 
 }

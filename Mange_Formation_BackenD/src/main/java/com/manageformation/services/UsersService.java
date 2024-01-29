@@ -118,4 +118,7 @@ public class UsersService {
     public List<Formater> getAllFormaters(){    	
     	return fr.findAll();
     }
+    public Formater FindByEmail(String email) {
+    	return fr.findByEmail(email);
+    }
 }
