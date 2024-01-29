@@ -75,19 +75,22 @@ const FormationList = () => {
           />
         )}
       </div>
-      <div className="list--containerf">
-  {allFormations.map((formation) => (
-    <div className="listf" key={formation.id}>
-      <div className="teacher--detail">
-        <h2>{formation.nomFormation}</h2>
-      </div>
-      <span>{formation.dateDebut}</span>
-      <span>{formation.formater ? formation.formater.name : 'null'}</span>
-      <span className="teacher--todo">:</span>
-    </div>
-  ))}
-</div>
-
+      {allFormations.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--containerf">
+          {allFormations.map((formation) => (
+            <div className="listf" key={formation.id}>
+              <div className="teacher--detail">
+                <h2>{formation.nomFormation}</h2>
+              </div>
+              <span>{formation.dateDebut}</span>
+              <span>{formation.formater ? formation.formater.name : 'null'}</span>
+              <button className="teacher--todo">Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

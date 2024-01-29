@@ -43,17 +43,13 @@ const TeacherList = () => {
   const handleSubmitForm = (formData) => {
     const { email, password, confirmPassword } = formData;
 
-    // Validate email
     if (!isEmailValid(email)) {
       console.error('Invalid email address');
-      // You can set an email error state here if needed
       return;
     }
 
-    // Validate password and confirmPassword
     if (password !== confirmPassword) {
       console.error('Password and confirm password do not match');
-      // You can set a confirmPassword error state here if needed
       return;
     }
     const requestBody={
@@ -65,7 +61,7 @@ const TeacherList = () => {
     axios.post('/users/newFormaterInterne', requestBody,{
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json', // Set the content type if needed
+        'Content-Type': 'application/json',
       },
     })
     .then(response => {
@@ -76,13 +72,29 @@ const TeacherList = () => {
     .catch(error => {
       console.error('Error adding course:', error);
     });
+
   };
+
+  const handleDeleteTeacher = () => {
+    axios.post('/users/deleteFormater',{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      console.log('Teacher deleted successfully:', response.data);
+    })
+    .catch(error => {
+      console.error('Error deleting teacher:', error);
+    });  
+  }
 
   return (
     <div className="teacher--list">
       <div className="list--header">
         <h2>Formateurs</h2>
-        <button type="button" onClick={handleAddTeacher}>
+        <button className="teacher--add" type="button" onClick={handleAddTeacher}>
           Add Teacher
         </button>
         {isModalOpen && (
@@ -93,20 +105,21 @@ const TeacherList = () => {
           />
         )}
       </div>
-      <div className="list--container">
-  {allTeachers.map((teacher) => (
-    <div className="list" key={teacher.id}>
-      <div className="teacher--detail">
-        <h2>{teacher.name}</h2>
-      </div>
-      <span>{teacher.competence}</span>
-      <span className="teacher--todo">:</span>
-
-      
-    </div>
-  ))}
-</div>
-
+      {allTeachers.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--container">
+          {allTeachers.map((teacher) => (
+            <div className="list" key={teacher.id}>
+              <div className="teacher--detail">
+                <h2>{teacher.name}</h2>
+              </div>
+              <span>{teacher.competence}</span>
+              <button className="teacher--todo" onClick={handleDeleteTeacher}>Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

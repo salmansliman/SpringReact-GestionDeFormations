@@ -75,21 +75,24 @@ const EntrepriseList = () => {
           />
         )}
       </div>
-      <div className="list--container">
-  {allEntreprises.map((Entreprise) => (
-    <div className="list" key={Entreprise.idEntreprise}>
-      <div className="teacher--detail">
-        <h2>{Entreprise.nomEntreprise}</h2>
-      </div>
-      <span>{Entreprise.adresseEntreprise}</span>
-      <span>{Entreprise.telEntreprise}</span>
-      <span>{Entreprise.url}</span>
-      <span>{Entreprise.emailEntreprise}</span>
-      <span className="teacher--todo">:</span>
-    </div>
-  ))}
-</div>
-
+      {allEntreprises.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--container">
+          {allEntreprises.map((entreprise) => (
+            <div className="list" key={entreprise.idEntreprise}>
+              <div className="teacher--detail">
+                <h2>{entreprise.nomEntreprise}</h2>
+              </div>
+              <span>{entreprise.adresseEntreprise}</span>
+              <span>{entreprise.telEntreprise}</span>
+              <span>{entreprise.url}</span>
+              <span>{entreprise.emailEntreprise}</span>
+              <button className="teacher--todo">Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

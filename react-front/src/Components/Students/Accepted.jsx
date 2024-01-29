@@ -70,18 +70,22 @@ const Accepted = () => {
           ))}
         </select>
       </div>
-      <div className="list--container">
-        {filteredStudents.map((student) => (
-          <div className="list" key={student.id}>
-            <div className="teacher--detail">
-              <h2>{student.name}</h2>
+      {filteredStudents.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--container">
+          {filteredStudents.map((student) => (
+            <div className="list" key={student.id}>
+              <div className="teacher--detail">
+                <h2>{student.name}</h2>
+              </div>
+              <span>{student.statue.toString()}</span>
+              <span>{student.formation.nomFormation}</span>
+              <span className="teacher--todo">:</span>
             </div>
-            <span>{student.statue.toString()}</span>
-            <span>{student.formation.nomFormation}</span>
-            <span className="teacher--todo">:</span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
