@@ -22,6 +22,7 @@ public interface FormationRepository extends JpaRepository<Formation, Integer> {
     List<Formation> findByDateDebutBetween(Date dateDebut,Date dateEnd);
     List<Formation> findByFormater(Formater formater);
     List<Formation> findByEntreprise(Entreprise entreprise);
+    
     @Query("SELECT f FROM Formation f WHERE f.ville IS NULL")
     List<Formation> findFormationsWithNullVille();
 }

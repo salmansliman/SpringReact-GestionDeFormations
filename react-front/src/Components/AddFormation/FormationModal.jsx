@@ -12,6 +12,23 @@ const FormationModal = ({ isOpen, onClose, onSubmit }) => {
     programmeDetails: '',
     categorie:'',
   });
+  const categories = [
+    'Computer Science',
+    'Mathematics',
+    'Physics',
+    'Engineering',
+    'Business and Finance',
+    'Health and Medicine',
+    'Language and Literature',
+    'Social Sciences',
+    'Art and Design',
+    'Environmental Science',
+    'History',
+    'Music and Performing Arts',
+    'Personal Development',
+    'Technology and Innovation',
+    'Education and Teaching',
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -101,18 +118,22 @@ const FormationModal = ({ isOpen, onClose, onSubmit }) => {
           />
         </div>
         <label htmlFor="categorie" className="modal-label">
-          categorie:
+          Categorie:
         </label>
-        <div className="modal-label">
-          <input
-            type="text"
-            id="pcategorie"
-            name="categorie"
-            value={formData.categorie}
-            onChange={handleInputChange}
-            className="modal-input"
-          />
-        </div>
+        <select
+          id="categorie"
+          name="categorie"
+          value={formData.categorie}
+          onChange={handleInputChange}
+          className="modal-input"
+        >
+          <option value="" disabled>Select a category</option>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
 
 
         <div className="modal-buttons">
