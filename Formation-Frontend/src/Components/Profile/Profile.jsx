@@ -48,6 +48,7 @@ const Profile = () => {
                                 <span className="duration">{course.nbrHeures} Hours</span>
                             </div>
                         </div>
+                        <div className="action">:</div>
                     </div>
                 ))}
             </div>
