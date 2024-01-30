@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./AddFormation.css";
 import { Button } from "@material-ui/core";
 import Modal from "./FormationModal";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const FormationList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allFormations,setAllFormations]=useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = localStorage.getItem('role') == "ROLE_ADMIN"
-  const isAssistance=localStorage.getItem('role') == "ROLE_ASSISTANT"
+  const isAdmin = getRole() == "Admin"
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
   const handleAddFormation = () => {
     setIsModalOpen(true);
   };
@@ -20,6 +22,10 @@ const FormationList = () => {
     setIsModalOpen(false);
   };
   useEffect(() => {
+    if(!isAdmin) {
+      navigate("/dashboard");
+    }
+
     axios
     .get("/formation/all",{
     })
@@ -32,6 +38,7 @@ const FormationList = () => {
     });
     console.log("All Formations in Dashboard",allFormations);
   },[refreshFlag]);
+
   const handleSubmitForm = (formData) => {
     const requestBody={
       nomFormation:formData.nomFormation,
@@ -60,6 +67,23 @@ const FormationList = () => {
     });
   };
 
+  const handleDeleteFormation = (idFormation) => {
+    axios.delete('/formation/DeleteById', {
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      data: idFormation,
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
   return (
     <div className="teacher--list">
       <div className="list--header">
@@ -75,19 +99,22 @@ const FormationList = () => {
           />
         )}
       </div>
-      <div className="list--containerf">
-  {allFormations.map((formation) => (
-    <div className="listf" key={formation.id}>
-      <div className="teacher--detail">
-        <h2>{formation.nomFormation}</h2>
-      </div>
-      <span>{formation.dateDebut}</span>
-      <span>{formation.formater ? formation.formater.name : 'null'}</span>
-      <span className="teacher--todo">:</span>
-    </div>
-  ))}
-</div>
-
+      {allFormations.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--containerf">
+          {allFormations.map((formation) => (
+            <div className="listf" key={formation.id}>
+              <div className="teacher--detail">
+                <h2>{formation.nomFormation}</h2>
+              </div>
+              <span>{formation.dateDebut}</span>
+              <span>{formation.formater ? formation.formater.name : 'null'}</span>
+              <button className="teacher--todo" onClick={() => handleDeleteFormation(formation.id)}>Delete</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

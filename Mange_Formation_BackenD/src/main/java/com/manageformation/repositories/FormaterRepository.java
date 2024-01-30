@@ -12,4 +12,5 @@ import java.util.List;
 public interface FormaterRepository extends JpaRepository<Formater, Integer>{
 	  Optional<Formater> findByName(String name);
 	  Formater findById(int id);
+	  Formater findByEmail(String email);
 }

@@ -90,7 +90,7 @@ public class UsersController {
     	return service.updateFormater(formater);
     }
     
-    @DeleteMapping("deleteFormater")
+    @DeleteMapping("/deleteFormater")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public void DeleteFormater(@RequestBody Formater formater) {
     	service.DeleteFormater(formater);
@@ -99,6 +99,11 @@ public class UsersController {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public List<Formater> getAllFormater(){
     	return service.getAllFormaters();
+    }
+    
+    @GetMapping("/getFormaterByEmail")
+    public Formater findFormaterById(@RequestBody String email) {
+    	return service.FindByEmail(email);
     }
     
    

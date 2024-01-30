@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -8,11 +9,14 @@ const Students = () => {
   const [studentFilter, setStudentFilter] = useState("");
   const [formationFilter, setFormationFilter] = useState("");
   const [uniqueFormationNames, setUniqueFormationNames] = useState([]);
-  const isAdmin = localStorage.getItem('role') === "ROLE_ADMIN";
-  const isAssistance = localStorage.getItem('role') === "ROLE_ASSISTANT";
+  const isFormateur = getRole() == "Formateur"
   const token = localStorage.getItem('token');
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if(isFormateur) {
+      navigate("/dashboard")
+    }
     axios
       .get("/student/false", {
         headers: {
@@ -89,24 +93,28 @@ const Students = () => {
           ))}
         </select>
       </div>
-      <div className="list--container">
-        {filteredStudents.map((student) => (
-          <div className="list" key={student.id}>
-            <div className="teacher--detail">
-              <h2>{student.name}</h2>
+      {filteredStudents.length === 0 ? (
+        <div className="empty-state">Nothing to show...</div>
+      ) : (
+        <div className="list--container">
+          {filteredStudents.map((student) => (
+            <div className="list" key={student.id}>
+              <div className="teacher--detail">
+                <h2>{student.name}</h2>
+              </div>
+              <span>{student.statue.toString()}</span>
+              <span>{student.formation.nomFormation}</span>
+              <button className="teacher--todo">Delete</button>
+              <button
+                onClick={() => handleButtonClick(student.id)}
+                className="student-button"
+              >
+                Accept
+              </button>
             </div>
-            <span>{student.statue.toString()}</span>
-            <span>{student.formation.nomFormation}</span>
-            <span className="teacher--todo">:</span>
-            <button
-              onClick={() => handleButtonClick(student.id)}
-              className="student-button"
-            >
-              accept
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

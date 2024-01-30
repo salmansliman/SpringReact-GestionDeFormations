@@ -119,3 +119,11 @@
     color: #526d86;
     border-radius: 10px;
 }
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #888; /* Adjust the color based on your design */
+  }
+  

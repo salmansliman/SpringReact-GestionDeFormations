@@ -114,3 +114,8 @@ const Content = () => {
 
 export default Content;
 
+
+const Nothing = () => {
+  <div>Nothing to show</div>
+}
+

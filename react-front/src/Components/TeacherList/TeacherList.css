@@ -33,3 +33,48 @@
     background: #dde6ed;
     border-radius: 10px;
 }
+
+.teacher--todo {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.teacher--todo:hover {
+    background-color: white;
+    color: red;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.teacher--add {
+    background-color: #526d82;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.teacher--add:hover {
+    background-color: white;
+    color: #526d82;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.student-button {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.teacher--todo:hover {
+    background-color: white;
+    color: green;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
