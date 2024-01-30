@@ -25,6 +25,5 @@ public interface FormationRepository extends JpaRepository<Formation, Integer> {
     List<Formation> findFormationByFormaterEmail(String email);
     @Query("SELECT f FROM Formation f WHERE f.ville IS NULL")
     List<Formation> findFormationsWithNullVille();
-    List<Formation> findFormationByFormaterEmail(String email);
 }
 

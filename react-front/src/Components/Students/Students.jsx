@@ -69,6 +69,24 @@ const Students = () => {
       });
   };
 
+  const handleDeleteStudent = (idStudent) => {
+    axios.delete('/student/delete', {
+      headers: {
+        Authorization: 'Bearer ' + token, // Replace with your actual access token
+        'Content-Type': 'application/json',
+      },
+      data: {
+        id: idStudent},
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
   return (
     <div className="teacher--list">
       <div className="list--header">
@@ -104,7 +122,7 @@ const Students = () => {
               </div>
               <span>{student.statue.toString()}</span>
               <span>{student.formation.nomFormation}</span>
-              <button className="teacher--todo">Delete</button>
+              <button className="teacher--todo" onClick={() => handleDeleteStudent(student.id)}>Delete</button>
               <button
                 onClick={() => handleButtonClick(student.id)}
                 className="student-button"
