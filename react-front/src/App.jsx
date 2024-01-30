@@ -4,8 +4,8 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Components/Login/Login";
 import { AuthProvider } from "./Components/Login/context/AuthProvider";
 import Landing from "./Components/Landing/Landing";
-import Profile from "./Components/Profile/Profile";
-import Sidebar from "./Components/Sidebar/Sidebar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AddEntreprise from "./Components/AddEntreprise/AddEntreprise";
 import DashboardHome from "./Components/Dashboard/DashboardHome";
 import AddFormation from "./Components/AddFormation/AddFormation";
@@ -19,6 +19,8 @@ import Accepted from "./Components/Students/Accepted";
 
 function App() {
   return (
+    <>
+          <ToastContainer />
     <AuthProvider>
       <SidebarProvider>
         <CoursesProvider>
@@ -41,6 +43,7 @@ function App() {
         </CoursesProvider>
       </SidebarProvider>
     </AuthProvider>
+    </>
   );
 }
 
