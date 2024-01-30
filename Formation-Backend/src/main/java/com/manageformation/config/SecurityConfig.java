@@ -33,25 +33,28 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-//        UserDetails admin = User.withUsername("Basant")
-//                .password(encoder.encode("Pwd1"))
-//                .roles("ADMIN")
-//                .build();
-//        UserDetails user = User.withUsername("John")
-//                .password(encoder.encode("Pwd2"))
-//                .roles("USER","ADMIN","HR")
-//                .build();
-//        return new InMemoryUserDetailsManager(admin, user);
         return new UserInfoUserDetailsService();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String[] permitAllRoutes = {
+                "/users/new", "/users/authenticate", "/users/newFormaterExterne",
+                "/formation/welcome", "/entreprise/welcome", "/formation/all",
+                "/formation/{ville}", "/formation/{date}", "/{date1}/{date2}",
+                "/formation/**", "/student/new", "/users/getFormaterByEmail",
+                "/formation/FormationEmail"
+        };
+
+        String[] authenticatedRoutes = {
+                "/users/**", "/entreprise/**", "/student/**", "/formation/**"
+        };
+
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne","/formation/welcome","/entreprise/welcome","/formation/all","/formation/{ville}","/formation/{date}","/{date1}/{date2}","/formation/**","/student/new","/users/getFormaterByEmail","/formation/FormationEmail").permitAll()
+                .requestMatchers(permitAllRoutes).permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**","/entreprise/**","/student/**","/formation/**")
+                .authorizeHttpRequests().requestMatchers(authenticatedRoutes)
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

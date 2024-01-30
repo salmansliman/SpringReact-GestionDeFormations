@@ -1,58 +1,58 @@
 .customcontainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 14px;
-    padding-block: 2rem;
-    margin-top: 0rem;
-    margin-bottom: 0.5rem;
-    margin-inline: auto;
-    width: 75%;
-    max-width: 600px;
-    height: auto;
-    max-height: none;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.572);
-    background-color: #dde6ed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 14px;
+  padding-block: 2rem;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+  margin-inline: auto;
+  width: 75%;
+  max-width: 600px;
+  height: auto;
+  max-height: none;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.572);
+  background-color: #dde6ed;
 }
 
 .inputcustomcontainer {
-    display: flex;
-    margin-block: 0.7rem;
-    gap: 1rem;
+  display: flex;
+  margin-block: 0.7rem;
+  gap: 1rem;
 }
-select{
-    background-color: #dde6ed;
+select {
+  background-color: #dde6ed;
 }
 
 .calendar {
-    padding: 10px;
-    margin: 50px;
-    position: absolute;
-    z-index: 1000;
+  padding: 10px;
+  margin: 50px;
+  position: absolute;
+  z-index: 1000;
 }
 
 .modalShow {
-    position: fixed;
-    z-index: 1001;
+  position: fixed;
+  z-index: 1001;
 }
 
 .addButton {
-    color: #dde6ed;
-    background-color: #27374d;
-    border: none;
-    border-radius: 14px;
-    padding: 0.4rem 0.8rem;
-    font-size: 1.2rem;
-    box-shadow: 0 1px 5px 1px rgba(87, 86, 86, 0.27);
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    z-index: 1000; /* Ensure it's above other elements */
+  color: #dde6ed;
+  background-color: #27374d;
+  border: none;
+  border-radius: 14px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  box-shadow: 0 1px 5px 1px rgba(87, 86, 86, 0.27);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000; /* Ensure it's above other elements */
 }
 
 .addButton:active {
-    box-shadow: none;
-    transform: scale(0.9);
+  box-shadow: none;
+  transform: scale(0.9);
 }

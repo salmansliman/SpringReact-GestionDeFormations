@@ -1,38 +1,38 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Category = ({image, category}) => {
+const Category = ({ image, category }) => {
   return (
-    <Link to = {`/category/${category}`}>
-      <CategoryItemWrapper className='flex flex-column bg-alice-blue'>
-        <div className='category-item-name'>
+    <Link to={`/category/${category}`}>
+      <CategoryItemWrapper className="flex flex-column bg-alice-blue">
+        <div className="category-item-name">
           <h6>{category}</h6>
         </div>
       </CategoryItemWrapper>
     </Link>
-  )
-}
+  );
+};
 
 const CategoryItemWrapper = styled.div`
   padding: 20px;
   border: 1px solid transparent;
   transition: var(--transition);
 
-  .category-item-img{
-    img{
+  .category-item-img {
+    img {
       max-width: 110px;
     }
   }
-  .category-item-name{
+  .category-item-name {
     margin-top: 5px;
-    h6{
+    h6 {
       font-size: 15px;
     }
   }
-  &:hover{
+  &:hover {
     border: 1px solid var(--clr-purple);
   }
 `;
 
-export default Category
+export default Category;

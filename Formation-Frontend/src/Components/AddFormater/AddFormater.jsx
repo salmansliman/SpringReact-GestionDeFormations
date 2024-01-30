@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './AddFormater.css'; // Assuming you have an AddFormater.css file
+import './AddFormater.css';
 
 const AddFormater = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('Formater'); // Default to Formater
+  const [role, setRole] = useState('Formater');
   const [competenceType, setCompetenceType] = useState('');
-  const [type, setType] = useState('Intern'); // Default to Intern
+  const [type, setType] = useState('Intern');
 
   const handleAddFormater = () => {
     console.log('Name:', name);

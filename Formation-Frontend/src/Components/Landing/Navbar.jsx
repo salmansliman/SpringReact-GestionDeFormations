@@ -1,47 +1,48 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 import { MdMenu, MdShoppingCart } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import { isLogin } from '../../api/axios';
+import { Link } from "react-router-dom";
+import { isLogin } from "../../api/axios";
 
 const Navbar = () => {
-  const isLoggedIn = isLogin()
+  const isLoggedIn = isLogin();
   return (
     <NavbarWrapper className="bg-white flex">
-      <div className='container w-100'>
-        <div className='brand-and-toggler flex flex-between w-100'>
-          <Link to="/" className='navbar-brand text-uppercase ls-1 fw-8'>
-            <span>F</span><span style={{ color: 'Black' }}>ormation</span>
+      <div className="container w-100">
+        <div className="brand-and-toggler flex flex-between w-100">
+          <Link to="/" className="navbar-brand text-uppercase ls-1 fw-8">
+            <span>F</span>
+            <span style={{ color: "Black" }}>ormation</span>
           </Link>
 
-          <div className='navbar-btns flex'>
+          <div className="navbar-btns flex">
             {!isLoggedIn ? (
               <>
-            <Link to="/login" className='login-btn'>
-            Login
-          </Link>
-          <Link to="/register" className='register-btn'>
-            Register as Teacher
-          </Link>
-          </>
+                <Link to="/login" className="login-btn">
+                  Login
+                </Link>
+                <Link to="/register" className="register-btn">
+                  Register as Teacher
+                </Link>
+              </>
             ) : (
               <>
-          <Link to="/dashboard" className='register-btn'>
-            Dashboard
-          </Link>
-          </>
-            )
-            }
+                <Link to="/dashboard" className="register-btn">
+                  Dashboard
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
     </NavbarWrapper>
   );
-}
+};
 
 const NavbarWrapper = styled.nav`
   height: 80px;
-  box-shadow: rgba(50, 50, 93, 0.15) 0px 16px 12px -2px, rgba(0, 0, 0, 0.2) 0px 3px 7px -3px;
+  box-shadow: rgba(50, 50, 93, 0.15) 0px 16px 12px -2px,
+    rgba(0, 0, 0, 0.2) 0px 3px 7px -3px;
 
   .navbar-brand {
     font-size: 23px;

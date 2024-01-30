@@ -1,4 +1,3 @@
-// CourseModal.jsx
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
@@ -37,7 +36,6 @@ const CourseModal = ({ isOpen, onClose, onSubmit }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Use regex to allow only numeric values for cost and duration
     if (name === 'cost' || name === 'duration') {
       if (/^[0-9]*$/.test(value) || value === '') {
         setFormData((prevData) => ({

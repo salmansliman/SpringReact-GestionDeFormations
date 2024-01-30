@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
+import AcceptedService from "../../services/AcceptedService";
 
 const Accepted = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -8,37 +9,36 @@ const Accepted = () => {
   const [studentNameFilter, setStudentNameFilter] = useState("");
   const [formationNameFilter, setFormationNameFilter] = useState("");
   const [uniqueFormationNames, setUniqueFormationNames] = useState([]);
-
-  const isAdmin = localStorage.getItem('role') === "ROLE_ADMIN";
-  const isAssistance = localStorage.getItem('role') === "ROLE_ASSISTANT";
-  const token = localStorage.getItem('token');
+  const isFormateur = getRole() == "Formateur";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    axios
-      .get("/student/true", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(function (response) {
-        console.log("alllll", response?.data);
-        setAllStudents(response?.data);
-        setFilteredStudents(response?.data); 
+    const fetchData = async () => {
+      try {
+        const students = await AcceptedService.getAllStudents();
+        setAllStudents(students);
+        setFilteredStudents(students);
 
-        
-        const uniqueNames = [...new Set(response?.data.map(student => student.formation.nomFormation))];
+        const uniqueNames = [
+          ...new Set(students.map((student) => student.formation.nomFormation)),
+        ];
         setUniqueFormationNames(uniqueNames);
-      })
-      .catch(function (error) {
-        console.error('Error fetching Students', error);
-      });
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+
+    fetchData();
   }, [refreshFlag]);
 
   useEffect(() => {
-    const filteredList = allStudents.filter(student => {
-      const nameMatch = student.name.toLowerCase().includes(studentNameFilter.toLowerCase());
-      const formationMatch = formationNameFilter ? student.formation.nomFormation === formationNameFilter : true;
+    const filteredList = allStudents.filter((student) => {
+      const nameMatch = student.name
+        .toLowerCase()
+        .includes(studentNameFilter.toLowerCase());
+      const formationMatch = formationNameFilter
+        ? student.formation.nomFormation === formationNameFilter
+        : true;
 
       return nameMatch && formationMatch;
     });
@@ -47,22 +47,18 @@ const Accepted = () => {
   }, [studentNameFilter, formationNameFilter]);
 
   const handleDeleteStudent = (idStudent) => {
-    axios.delete('/student/delete', {
-      headers: {
-        Authorization: 'Bearer ' + token, // Replace with your actual access token
-        'Content-Type': 'application/json',
-      },
-      data: {
-        id: idStudent},
-    })
-      .then(response => {
-        console.log('Success:', response.data);
-        setRefreshFlag(!refreshFlag);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    try {
+      AcceptedService.deleteStudent(idStudent)
+        .then(() => {
+          setRefreshFlag(!refreshFlag);
+        })
+        .catch((error) => {
+          console.error("Error deleting student:", error);
+        });
+    } catch (error) {
+      console.error("Error deleting student:", error);
     }
+  };
 
   return (
     <div className="teacher--list">
@@ -98,7 +94,14 @@ const Accepted = () => {
                 <h2>{student.name}</h2>
               </div>
               <span>{student.formation.nomFormation}</span>
-              <button className="teacher--todo" onClick={() => handleDeleteStudent(student.id)}>Delete</button>
+              {!isFormateur && (
+                <button
+                  className="teacher--todo"
+                  onClick={() => handleDeleteStudent(student.id)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           ))}
         </div>

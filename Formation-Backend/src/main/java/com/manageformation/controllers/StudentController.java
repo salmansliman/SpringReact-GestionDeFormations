@@ -49,7 +49,7 @@ public class StudentController {
 		return ss.getStudentsWithFalseStatue();
 	}
 	@GetMapping("/true")
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT','ROLE_FORMATER')")
 	public List<Student> findByStatueTrue(){
 		return ss.getStudentsWithTrueStatue();
 	}

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import './Modal.css';
+import React, { useState } from "react";
+import Modal from "react-modal";
+import "./Modal.css";
 
 const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    name: "",
+    email: "",
   });
 
   const handleInputChange = (e) => {
@@ -27,12 +27,12 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
 
   return (
     <Modal
-    isOpen={isOpen}
-    onRequestClose={onClose}
-    contentLabel="Enroll Student Modal"
-    ariaHideApp={false}
-    className="modal"
-      >
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      contentLabel="Enroll Student Modal"
+      ariaHideApp={false}
+      className="modal"
+    >
       <h2 className="modal-title">Enroll Student</h2>
       <form className="modal-form">
         <label htmlFor="name" className="modal-label">
@@ -60,10 +60,18 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
         />
 
         <div className="modal-buttons">
-          <button type="button" onClick={handleSubmit} className="modal-save-btn">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="modal-save-btn"
+          >
             Enroll
           </button>
-          <button type="button" onClick={handleClose} className="modal-cancel-btn">
+          <button
+            type="button"
+            onClick={handleClose}
+            className="modal-cancel-btn"
+          >
             Cancel
           </button>
         </div>
@@ -73,4 +81,3 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
 };
 
 export default StudentEnrollmentModal;
-

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manageformation.entities.Formater;
@@ -116,7 +117,7 @@ public class FormationController {
         }
     }
     @GetMapping("/FormationEmail")
-    public List<Formation> findFormationByEmail(String Email){
-    	return service.getFormationByEmail(Email);
+    public List<Formation> findFormationByEmail(@RequestParam String email) {
+        return service.getFormationByEmail(email);
     }
 }

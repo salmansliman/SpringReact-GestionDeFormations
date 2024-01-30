@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Course = (props) => {
   const {
@@ -12,48 +12,48 @@ const Course = (props) => {
     progammeDetails,
     ville,
     categorie,
-    formater
+    formater,
   } = props;
 
   const truncateText = (text, maxLength) => {
-    if(!text) {
-        return;
+    if (!text) {
+      return;
     }
-    const words = text.split(' ');
+    const words = text.split(" ");
     if (words.length > maxLength) {
-      return words.slice(0, maxLength).join(' ') + '...';
+      return words.slice(0, maxLength).join(" ") + "...";
     }
     return text;
   };
-  
+
   return (
     <CourseCard>
-      <div className='item-body'>
-        <h5 className='item-name'>{nomFormation}</h5>
-        <p className='item-details'>
-            <strong>Teacher:</strong>  { formater ? formater.name : "Not Assigned" }
+      <div className="item-body">
+        <h5 className="item-name">{nomFormation}</h5>
+        <p className="item-details">
+          <strong>Teacher:</strong> {formater ? formater.name : "Not Assigned"}
         </p>
-        <p className='item-details'>
+        <p className="item-details">
           <strong>Duration:</strong> {nbrHeures} hours
         </p>
-        <p className='item-details'>
+        <p className="item-details">
           <strong>Cost:</strong> {cout} DH
         </p>
-        <p className='item-details'>
+        <p className="item-details">
           <strong>Objectives:</strong> {truncateText(objectifs, 12)}
         </p>
-        <p className='item-details'>
+        <p className="item-details">
           <strong>Programme Details:</strong> {progammeDetails}
         </p>
-        <p className='item-details'>
-          <strong>City:</strong> {ville || 'Not specified'}
+        <p className="item-details">
+          <strong>City:</strong> {ville || "Not specified"}
         </p>
-        <p className='item-details'>
-          <strong>Category:</strong> {categorie || 'Not specified'}
+        <p className="item-details">
+          <strong>Category:</strong> {categorie || "Not specified"}
         </p>
       </div>
-      <div className='item-btns flex'>
-        <Link to={`/courses/${id}`} className='item-btn see-details-btn'>
+      <div className="item-btns flex">
+        <Link to={`/courses/${id}`} className="item-btn see-details-btn">
           See details
         </Link>
       </div>

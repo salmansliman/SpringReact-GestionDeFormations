@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { getRole } from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import StudentService from "../../services/StudentService";
 
 const Students = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -9,40 +10,40 @@ const Students = () => {
   const [studentFilter, setStudentFilter] = useState("");
   const [formationFilter, setFormationFilter] = useState("");
   const [uniqueFormationNames, setUniqueFormationNames] = useState([]);
-  const isFormateur = getRole() == "Formateur"
-  const token = localStorage.getItem('token');
-  const navigate = useNavigate()
+  const isFormateur = getRole() == "Formateur";
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(isFormateur) {
-      navigate("/dashboard")
+    if (isFormateur) {
+      navigate("/dashboard");
     }
-    axios
-      .get("/student/false", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(function (response) {
-        console.log("alllll", response?.data);
-        setAllStudents(response?.data);
-        setFilteredStudents(response?.data); // Initialize filtered students with all students
+    const fetchData = async () => {
+      try {
+        const students = await StudentService.getAllStudents();
+        setAllStudents(students);
+        setFilteredStudents(students);
 
-        // Extract unique formation names from the list of students
-        const uniqueNames = [...new Set(response?.data.map(student => student.formation.nomFormation))];
+        const uniqueNames = [
+          ...new Set(students.map((student) => student.formation.nomFormation)),
+        ];
         setUniqueFormationNames(uniqueNames);
-      })
-      .catch(function (error) {
-        console.error('Error fetching Students', error);
-      });
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+
+    fetchData();
   }, [refreshFlag]);
 
   useEffect(() => {
-    // Apply filters based on studentFilter and formationFilter
-    const filteredList = allStudents.filter(student => {
-      const nameMatch = student.name.toLowerCase().includes(studentFilter.toLowerCase());
-      const formationMatch = formationFilter ? student.formation.nomFormation === formationFilter : true;
+    const filteredList = allStudents.filter((student) => {
+      const nameMatch = student.name
+        .toLowerCase()
+        .includes(studentFilter.toLowerCase());
+      const formationMatch = formationFilter
+        ? student.formation.nomFormation === formationFilter
+        : true;
 
       return nameMatch && formationMatch;
     });
@@ -51,41 +52,32 @@ const Students = () => {
   }, [studentFilter, formationFilter]);
 
   const handleButtonClick = (studentId) => {
-    // Add your logic for handling the button click here
-    console.log(`Button clicked for student with ID: ${studentId}`);
-    const requestBody = studentId;
-    axios.post('/student/accepte', requestBody, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        console.log('Student accepted:', response.data);
-        setRefreshFlag(!refreshFlag);
-      })
-      .catch(error => {
-        console.error('Error accepting:', error);
-      });
+    try {
+      StudentService.acceptStudent(studentId)
+        .then(() => {
+          setRefreshFlag(!refreshFlag);
+        })
+        .catch((error) => {
+          console.error("Error accepting student:", error);
+        });
+    } catch (error) {
+      console.error("Error accepting student:", error);
+    }
   };
 
   const handleDeleteStudent = (idStudent) => {
-    axios.delete('/student/delete', {
-      headers: {
-        Authorization: 'Bearer ' + token, // Replace with your actual access token
-        'Content-Type': 'application/json',
-      },
-      data: {
-        id: idStudent},
-    })
-      .then(response => {
-        console.log('Success:', response.data);
-        setRefreshFlag(!refreshFlag);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    try {
+      StudentService.deleteStudent(idStudent)
+        .then(() => {
+          setRefreshFlag(!refreshFlag);
+        })
+        .catch((error) => {
+          console.error("Error deleting student:", error);
+        });
+    } catch (error) {
+      console.error("Error deleting student:", error);
     }
+  };
 
   return (
     <div className="teacher--list">
@@ -122,7 +114,12 @@ const Students = () => {
               </div>
               <span>{student.statue.toString()}</span>
               <span>{student.formation.nomFormation}</span>
-              <button className="teacher--todo" onClick={() => handleDeleteStudent(student.id)}>Delete</button>
+              <button
+                className="teacher--todo"
+                onClick={() => handleDeleteStudent(student.id)}
+              >
+                Delete
+              </button>
               <button
                 onClick={() => handleButtonClick(student.id)}
                 className="student-button"

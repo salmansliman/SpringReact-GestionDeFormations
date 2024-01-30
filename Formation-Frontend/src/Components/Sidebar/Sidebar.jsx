@@ -1,11 +1,8 @@
 import React from "react";
 import {
   BiBookAlt,
-  BiHelpCircle,
   BiHome,
   BiTask,
-  BiSolidReport,
-  BiStats,
 } from "react-icons/bi";
 import "./Sidebar.css";
 import { Link, useLocation } from "react-router-dom";
@@ -19,13 +16,14 @@ const Sidebar = () => {
 
   const isAdmin = role === "Admin";
   const isAssistant = role === "Assistant";
-  const isFormateur = role === "Formateur";
 
   return (
     <div className="menu">
       <div className="logo">
         <BiBookAlt className="logo-icon" />
-        <Link to={"/"} className="page-title">Manage Formations</Link>
+        <Link to={"/"} className="page-title">
+          Manage Formations
+        </Link>
       </div>
 
       <div className="menu--list">
@@ -51,17 +49,17 @@ const Sidebar = () => {
           </Link>
         )}
 
-{(isAdmin || isAssistant) && (
-        <Link
-          to="/dashboard/entreprise"
-          className={`item ${
-            location.pathname === "/dashboard/entreprise" ? "active" : ""
-          }`}
-        >
-          <FaRegBuilding />
-          Companies
-        </Link>
-)}
+        {(isAdmin || isAssistant) && (
+          <Link
+            to="/dashboard/entreprise"
+            className={`item ${
+              location.pathname === "/dashboard/entreprise" ? "active" : ""
+            }`}
+          >
+            <FaRegBuilding />
+            Companies
+          </Link>
+        )}
         <Link
           to="/dashboard/Planification"
           className={`item ${
@@ -72,29 +70,28 @@ const Sidebar = () => {
           Calendar
         </Link>
         {(isAdmin || isAssistant) && (
-
-            <Link
-              to="/dashboard/Students"
-              className={`item ${
-                location.pathname === "/dashboard/Students" ? "active" : ""
-              }`}
-            >
-              <FaUserClock />
-              Students WaitList
-            </Link>
+          <Link
+            to="/dashboard/Students"
+            className={`item ${
+              location.pathname === "/dashboard/Students" ? "active" : ""
+            }`}
+          >
+            <FaUserClock />
+            Students WaitList
+          </Link>
         )}
 
-            <>
-            <Link
-              to="/dashboard/Accepted"
-              className={`item ${
-                location.pathname === "/dashboard/Accepted" ? "active" : ""
-              }`}
-            >
-              <PiStudentBold />
-              Accepted Students
-            </Link>
-          </>
+        <>
+          <Link
+            to="/dashboard/Accepted"
+            className={`item ${
+              location.pathname === "/dashboard/Accepted" ? "active" : ""
+            }`}
+          >
+            <PiStudentBold />
+            Accepted Students
+          </Link>
+        </>
       </div>
     </div>
   );

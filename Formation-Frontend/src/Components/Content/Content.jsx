@@ -1,29 +1,30 @@
-// Content.jsx
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import "./Content.css";
 import TeacherList from "../TeacherList/TeacherList";
 import { BiAddToQueue, BiSearch } from "react-icons/bi";
-import CourseModal from "./CourseModal"; // Import the CourseModal
+import CourseModal from "./CourseModal";
 import axios, { getRole, isAdmin } from "../../api/axios";
+import CourseService from "../../services/CourseService";
 
 const Content = () => {
   const [allFormations, setAllFormations] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = getRole() == "Admin" 
-  const isAssistant = getRole() == "Assistant" 
-  const isFormateur = getRole() == "Formateur" 
-
+  const isAdmin = getRole() == "Admin";
+  const isAssistant = getRole() == "Assistant";
+  const isFormateur = getRole() == "Formateur";
 
   const filteredFormations = allFormations.filter((formation) => {
     if (!formation.nomFormation) {
       console.warn("Skipping undefined nomFormation:", formation);
       return false;
     }
-  
-    return formation.nomFormation.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return formation.nomFormation
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
   });
 
   const handleSearchChange = (e) => {
@@ -37,48 +38,28 @@ const Content = () => {
   const handleCloseCourseModal = () => {
     setIsCourseModalOpen(false);
   };
-  
-  useEffect(() => {
-    axios
-    .get("/formation/all")
-    .then(function (response) {
-      console.log(response?.data)
-      setAllFormations(response?.data)
-    })
-    .catch(function (error) {
-        console.error('Error fetching formations:', error);
-    });
-    console.log("ALL FORMATIONS in DashboardHome:", allFormations);
-}, [refreshFlag]);
 
+  useEffect(() => {
+    CourseService.getAllCourses()
+      .then((data) => {
+        setAllFormations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Courses", error);
+      });
+  }, [refreshFlag]);
 
   const handleAddCourse = (formData) => {
-    const requestBody = {
-      nomFormation: formData.title,
-      nbrHeures: parseInt(formData.duration),
-      cout: parseFloat(formData.cost), 
-      objectifs: formData.goals,
-      progammeDetails: formData.details,
-      categorie:formData.categorie
-    };
-    const token = localStorage.getItem('token');
-
-    axios.post('/formation/newFormation', requestBody,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json', // Set the content type if needed
-      },
-    })
-      .then(response => {
-        console.log('Course added successfully:', response.data);
-        setIsCourseModalOpen(false); 
+    const token = localStorage.getItem("token");
+    CourseService.addCourse(token, formData)
+      .then((response) => {
+        setIsCourseModalOpen(false);
         setRefreshFlag(!refreshFlag);
       })
-      .catch(error => {
-        console.error('Error adding course:', error);
+      .catch((error) => {
+        console.error("Error adding course:", error);
       });
   };
-
 
   return (
     <div className="content">
@@ -103,19 +84,19 @@ const Content = () => {
         </div>
       </div>
       <Card formations={filteredFormations} />
-      {(isAdmin || isAssistant) && (
-        <TeacherList />
-      )}
+      {(isAdmin || isAssistant) && <TeacherList />}
 
-      <CourseModal isOpen={isCourseModalOpen} onClose={handleCloseCourseModal} onSubmit={handleAddCourse} />
+      <CourseModal
+        isOpen={isCourseModalOpen}
+        onClose={handleCloseCourseModal}
+        onSubmit={handleAddCourse}
+      />
     </div>
   );
 };
 
 export default Content;
 
-
 const Nothing = () => {
-  <div>Nothing to show</div>
-}
-
+  <div>Nothing to show</div>;
+};

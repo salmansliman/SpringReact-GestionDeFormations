@@ -5,8 +5,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import axios, { getRole } from "../../api/axios";
-import PlanificationModal from "./PlanificationModal"; // Assuming correct path
-import './planifier.css'
+import PlanificationModal from "./PlanificationModal";
+import "./planifier.css";
+import PlanificationService from "../../services/PlanificationService";
 
 const Planification = () => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -14,71 +15,43 @@ const Planification = () => {
   const [allFormations, setAllFormations] = useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const [formData, setFormData] = useState({
-    idFormation: '',
-    dateDebut: '',
-    dateEnd: '',
-    ville:'',
-    formaterId: '',
-    entrepriseId: '',
+    idFormation: "",
+    dateDebut: "",
+    dateEnd: "",
+    ville: "",
+    formaterId: "",
+    entrepriseId: "",
   });
 
-  const token = localStorage.getItem('token');
-  const isFormateur = getRole() == "Formateur"
+  const token = localStorage.getItem("token");
+  const isFormateur = getRole() == "Formateur";
 
   useEffect(() => {
-    axios
-      .get("/formation/all", {})
-      .then(function (response) {
-        console.log("alllll", response?.data);
-        setAllFormations(response?.data);
-        const planifications = response.data;
-        const events = planifications.map((planification) => ({
-          id: planification.id,
-          title:planification.nomFormation,
-          start: planification.dateDebut,
-          end: planification.dateEnd,
+    PlanificationService.getAllFormations()
+      .then((formations) => {
+        setAllFormations(formations);
+        const events = formations.map((formation) => ({
+          id: formation.id,
+          title: formation.nomFormation,
+          start: formation.dateDebut,
+          end: formation.dateEnd,
           allDay: true,
-         
         }));
         setCurrentEvents(events);
-        console.log("events",events);
       })
-      .catch(function (error) {
-        console.error('Error fetching Formations', error);
+      .catch((error) => {
+        console.error("Error fetching Formations", error);
       });
   }, [refreshFlag]);
-  
 
-  const handleSubmitForm = () => {
-    const requestBody = {
-      "id": parseInt(formData.idFormation, 10),
-      "dateDebut": formData.dateDebut,
-      "dateEnd": formData.dateEnd,
-      "ville":formData.ville,
-      "formater": {
-          "id": parseInt(formData.formaterId, 10)
-      },
-      "entreprise": {
-          "idEntreprise": parseInt(formData.entrepriseId, 10)
-      }
-    };
-
-    console.log("REQUEST BODY",requestBody)
-
-    axios.put('/formation/updateFormation', requestBody, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        console.log('Formation updated successfully:', response.data);
-        setIsModalOpen(false);
-        setRefreshFlag(!refreshFlag);
-      })
-      .catch(error => {
-        console.error('Error updating formation:', error);
-      });
+  const handleSubmitForm = async () => {
+    try {
+      await PlanificationService.updateFormation(token, formData);
+      setIsModalOpen(false);
+      setRefreshFlag(!refreshFlag);
+    } catch (error) {
+      console.error("Error updating formation:", error);
+    }
   };
 
   const handleAddFormation = () => {
@@ -91,18 +64,27 @@ const Planification = () => {
 
   return (
     <div>
-      {!isFormateur &&(
-      <button type="button" onClick={handleAddFormation} className="addButton">
-        Plan Formation
-      </button>
+      {!isFormateur && (
+        <button
+          type="button"
+          onClick={handleAddFormation}
+          className="addButton"
+        >
+          Plan Formation
+        </button>
       )}
       {!isModalOpen && (
         <div className="calendar">
           <FullCalendar
             height="auto"
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+              listPlugin,
+            ]}
             headerToolbar={{
-              left: 'prev,next today',
+              left: "prev,next today",
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
@@ -118,7 +100,7 @@ const Planification = () => {
 
       {isModalOpen && (
         <PlanificationModal
-        className="modalShow"
+          className="modalShow"
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onSubmit={handleSubmitForm}

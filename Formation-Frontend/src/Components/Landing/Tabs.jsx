@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Course from "./Course";
 import axios from "../../api/axios";
 import { useCoursesContext } from "../../context/courses_context";
+import CourseService from "../../services/CourseService";
 
 const Tabs = () => {
   const [categories, setCategories] = useState([]);
@@ -16,20 +17,16 @@ const Tabs = () => {
     const selectedDate = event.target.value;
     setDateFilter(selectedDate);
   };
-  
+
   useEffect(() => {
-    // Fetch categories from the endpoint
-    axios
-      .get("/formation/categories")
-      .then((response) => {
-        setCategories(response.data);
-        console.log(categories);
-        setActiveCategory(response.data[0]);
+    CourseService.fetchCategories()
+      .then((categoriesData) => {
+        setCategories(categoriesData);
+        setActiveCategory(categoriesData[0]);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
-      console.log(courses)
   }, []);
 
   const tabHandler = (category) => {
@@ -37,66 +34,56 @@ const Tabs = () => {
   };
 
   const filterCourses = () => {
-    return courses.filter(course =>
-      (!activeCategory || course.categorie === activeCategory) &&
-      (!cityFilter || course.ville === cityFilter) &&
-      (!dateFilter || (course.dateDebut <= dateFilter && course.dateEnd >= dateFilter)) &&
-      (!searchTerm ||
-        (course.nomFormation && course.nomFormation.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
+    return courses.filter(
+      (course) =>
+        ((activeCategory === null || activeCategory === "All") ||
+          course.categorie === activeCategory) &&
+        (!cityFilter || course.ville === cityFilter) &&
+        (!dateFilter ||
+          (course.dateDebut <= dateFilter && course.dateEnd >= dateFilter)) &&
+        (!searchTerm ||
+          (course.nomFormation &&
+            course.nomFormation
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())))
     );
   };
-    
+
   return (
     <TabsWrapper>
       <div className="tabs">
         <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search courses..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div>
-  <label htmlFor="dateFilter">Filter by Date: </label>
-  <input
-    type="date"
-    id="dateFilter"
-    name="dateFilter"
-    value={dateFilter || ''}
-    onChange={handleDateFilterChange}
-  />
-</div>
-
-          <select
-            value={cityFilter}
-            onChange={(e) => setCityFilter(e.target.value)}
-          >
-            <option value="">All Cities</option>
-            {/* Map through unique cities and render options */}
-            {[...new Set(courses.map((course) => course.ville))].map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
+          {/* ... (previous code) */}
         </div>
-        <ul className='flex flex-wrap'>
-          {categories.map(category => (
-            <li key={category} className='tabs-head-item'>
+        <ul className="flex flex-wrap">
+          {/* Button for "All Categories" */}
+          <li className="tabs-head-item">
+            <button
+              type="button"
+              className={`tab-btn ${activeCategory === "All" ? "active" : ""}`}
+              onClick={() => tabHandler("All")}
+            >
+              All Categories
+            </button>
+          </li>
+
+          {categories.map((category) => (
+            <li key={category} className="tabs-head-item">
               <button
                 type="button"
-                className={`tab-btn ${activeCategory === category ? 'active' : ''}`}
+                className={`tab-btn ${
+                  activeCategory === category ? "active" : ""
+                }`}
                 onClick={() => tabHandler(category)}
               >
-                {category === null ? 'All' : category}
+                {category === null ? "Unspecified" : category}
               </button>
             </li>
           ))}
         </ul>
 
-        <div className='tabs-body'>
-          {filterCourses().map(course => (
+        <div className="tabs-body">
+          {filterCourses().map((course) => (
             <Course key={course.id} {...course} />
           ))}
         </div>
@@ -104,6 +91,7 @@ const Tabs = () => {
     </TabsWrapper>
   );
 };
+
 const TabsWrapper = styled.div`
   .tabs {
     margin-top: 16px;
@@ -164,7 +152,6 @@ const TabsWrapper = styled.div`
       border-radius: 4px;
     }
   }
-
 `;
 
 export default Tabs;

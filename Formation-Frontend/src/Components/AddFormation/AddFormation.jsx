@@ -4,14 +4,14 @@ import { Button } from "@material-ui/core";
 import Modal from "./FormationModal";
 import axios, { getRole } from "../../api/axios";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import FormationService from "../../services/FormationService";
 
 const FormationList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [allFormations,setAllFormations]=useState([]);
+  const [allFormations, setAllFormations] = useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const isAdmin = getRole() == "Admin"
-  const token = localStorage.getItem('token');
+  const isAdmin = getRole() == "Admin";
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const handleAddFormation = () => {
@@ -21,74 +21,51 @@ const FormationList = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
   useEffect(() => {
-    if(!isAdmin) {
+    if (!isAdmin) {
       navigate("/dashboard");
     }
 
-    axios
-    .get("/formation/all",{
-    })
-    .then(function(response){
-      console.log("alllll",response?.data)
-      setAllFormations(response?.data)
-    })
-    .catch(function(error){
-      console.error('Error fetching Formations',error);
-    });
-    console.log("All Formations in Dashboard",allFormations);
-  },[refreshFlag]);
+    FormationService.getAllFormations()
+      .then((data) => {
+        setAllFormations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Formations", error);
+      });
+  }, [refreshFlag]);
 
   const handleSubmitForm = (formData) => {
-    const requestBody={
-      nomFormation:formData.nomFormation,
-      nbrHeures:formData.nbrHeurs,
-      cout:formData.cout,
-      objectifs:formData.objectifs,
-      progammeDetails:formData.programmeDetails,
-      categorie:formData.categorie
-    };
-
-    console.log(requestBody)
-
-    axios.post('/formation/newFormation', requestBody,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json', // Set the content type if needed
-      },
-    })
-    .then(response => {
-      console.log('Formation added successfully:', response.data);
-      setIsModalOpen(false); 
-      setRefreshFlag(!refreshFlag);
-    })
-    .catch(error => {
-      console.error('Error adding course:', error);
-    });
+    FormationService.addFormation(token, formData)
+      .then((response) => {
+        setIsModalOpen(false);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch((error) => {
+        console.error("Error adding formation:", error);
+      });
   };
 
   const handleDeleteFormation = (idFormation) => {
-    axios.delete('/formation/DeleteById', {
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-      data: idFormation,
-    })
-      .then(response => {
-        console.log('Success:', response.data);
+    FormationService.deleteFormationById(token, idFormation)
+      .then((response) => {
         setRefreshFlag(!refreshFlag);
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
-    }
+  };
 
   return (
     <div className="teacher--list">
       <div className="list--header">
         <h2>Formations</h2>
-        <button type="button" onClick={handleAddFormation} className="addButton">
+        <button
+          type="button"
+          onClick={handleAddFormation}
+          className="addButton"
+        >
           Add Formation
         </button>
         {isModalOpen && (
@@ -109,8 +86,15 @@ const FormationList = () => {
                 <h2>{formation.nomFormation}</h2>
               </div>
               <span>{formation.dateDebut}</span>
-              <span>{formation.formater ? formation.formater.name : 'null'}</span>
-              <button className="teacher--todo" onClick={() => handleDeleteFormation(formation.id)}>Delete</button>
+              <span>
+                {formation.formater ? formation.formater.name : "null"}
+              </span>
+              <button
+                className="teacher--todo"
+                onClick={() => handleDeleteFormation(formation.id)}
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
