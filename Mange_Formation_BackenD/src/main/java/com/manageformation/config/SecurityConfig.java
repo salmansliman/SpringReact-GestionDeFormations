@@ -49,7 +49,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne","/formation/welcome","/entreprise/welcome","/formation/all","/formation/{ville}","/formation/{date}","/{date1}/{date2}","/formation/**","/student/new","/users/getFormaterByEmail").permitAll()
+                .requestMatchers("/users/new","/users/authenticate","/users/newFormaterExterne","/formation/welcome","/entreprise/welcome","/formation/all","/formation/{ville}","/formation/{date}","/{date1}/{date2}","/formation/**","/student/new","/users/getFormaterByEmail","/formation/FormationEmail").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/users/**","/entreprise/**","/student/**","/formation/**")
                 .authenticated().and()
