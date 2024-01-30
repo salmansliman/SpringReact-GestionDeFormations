@@ -68,17 +68,9 @@ const FormationList = () => {
   };
 
   const handleDeleteFormation = (idFormation) => {
-    const data={
-      id: idFormation
-    }
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    }    
-
     axios.delete('/formation/DeleteById', {
       headers: {
-        Authorization: 'Bearer ' + token, // Replace with your actual access token
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
       data: idFormation,

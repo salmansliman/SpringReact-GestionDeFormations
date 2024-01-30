@@ -40,6 +40,7 @@ const EntrepriseList = () => {
     });
     console.log("All Entreprises in Dashboard",allEntreprises);
   },[refreshFlag]);
+
   const handleSubmitForm = (formData) => {
     const requestBody={
       nomEntreprise:formData.nomEntreprise,
@@ -63,6 +64,24 @@ const EntrepriseList = () => {
       console.error('Error adding course:', error);
     });
   };
+
+  const handleDeleteEntreprise = (idEntreprise) => {
+    axios.delete('/entreprise/delete', {
+      headers: {
+        Authorization: 'Bearer ' + token, // Replace with your actual access token
+        'Content-Type': 'application/json',
+      },
+      data: {
+        idEntreprise: idEntreprise},
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
 
   return (
     <div className="teacher--list">
@@ -92,7 +111,7 @@ const EntrepriseList = () => {
               <span>{entreprise.telEntreprise}</span>
               <span>{entreprise.url}</span>
               <span>{entreprise.emailEntreprise}</span>
-              <button className="teacher--todo">Delete</button>
+              <button className="teacher--todo" onClick={() => handleDeleteEntreprise(entreprise.idEntreprise)}>Delete</button>
             </div>
           ))}
         </div>
