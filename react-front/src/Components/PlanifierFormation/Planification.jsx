@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import axios from "../../api/axios";
+import axios, { getRole } from "../../api/axios";
 import PlanificationModal from "./PlanificationModal"; // Assuming correct path
 import './planifier.css'
 
@@ -22,9 +22,8 @@ const Planification = () => {
     entrepriseId: '',
   });
 
-  const isAdmin = localStorage.getItem('role') === "ROLE_ADMIN";
-  const isAssistance = localStorage.getItem('role') === "ROLE_ASSISTANT";
   const token = localStorage.getItem('token');
+  const isFormateur = getRole() == "Formateur"
 
   useEffect(() => {
     axios
@@ -92,9 +91,11 @@ const Planification = () => {
 
   return (
     <div>
+      {!isFormateur &&(
       <button type="button" onClick={handleAddFormation} className="addButton">
         Plan Formation
       </button>
+      )}
       {!isModalOpen && (
         <div className="calendar">
           <FullCalendar
