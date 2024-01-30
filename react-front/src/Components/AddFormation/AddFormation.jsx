@@ -38,6 +38,7 @@ const FormationList = () => {
     });
     console.log("All Formations in Dashboard",allFormations);
   },[refreshFlag]);
+
   const handleSubmitForm = (formData) => {
     const requestBody={
       nomFormation:formData.nomFormation,
@@ -66,6 +67,31 @@ const FormationList = () => {
     });
   };
 
+  const handleDeleteFormation = (idFormation) => {
+    const data={
+      id: idFormation
+    }
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }    
+
+    axios.delete('/formation/DeleteById', {
+      headers: {
+        Authorization: 'Bearer ' + token, // Replace with your actual access token
+        'Content-Type': 'application/json',
+      },
+      data: idFormation,
+    })
+      .then(response => {
+        console.log('Success:', response.data);
+        setRefreshFlag(!refreshFlag);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
   return (
     <div className="teacher--list">
       <div className="list--header">
@@ -92,7 +118,7 @@ const FormationList = () => {
               </div>
               <span>{formation.dateDebut}</span>
               <span>{formation.formater ? formation.formater.name : 'null'}</span>
-              <button className="teacher--todo">Delete</button>
+              <button className="teacher--todo" onClick={() => handleDeleteFormation(formation.id)}>Delete</button>
             </div>
           ))}
         </div>
