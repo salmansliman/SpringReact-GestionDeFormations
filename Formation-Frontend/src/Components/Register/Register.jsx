@@ -16,8 +16,9 @@ import AuthContext from "../Login/context/AuthProvider";
 import axios, { isLogin } from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import RegisterService from "../../services/RegisterService";
+import TagsInput from "../TagsInput/TagsInput";
+import { toast, ToastContainer } from 'react-toastify';
 
-const REGISTER_URL = "/users/newFormaterExterne";
 
 const Register = () => {
   const { setAuth } = useContext(AuthContext);
@@ -35,6 +36,10 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleTagInputChange = (tags) => {
+    setCompetences(tags.join(", "));
+  };
 
   useEffect(() => {
     if (isLogin()) {
@@ -148,15 +153,7 @@ const Register = () => {
                 <label htmlFor="competences">Competences</label>
                 <div className="input flex">
                   <AiFillPlusSquare className="icon" />
-                  <input
-                    type="text"
-                    id="competences"
-                    placeholder="Competences"
-                    autoComplete="off"
-                    onChange={(e) => setCompetences(e.target.value)}
-                    value={competences}
-                    required
-                  ></input>
+                  <TagsInput selectedTags={handleTagInputChange} />
                 </div>
               </div>
 
@@ -231,6 +228,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

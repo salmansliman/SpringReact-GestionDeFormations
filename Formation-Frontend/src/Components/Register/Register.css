@@ -113,6 +113,7 @@
     outline: none;
     border: none;
     width: 200px;
+    flex-wrap: wrap; /* Add this line */
   }
   .registerPage .container .formDiv .form .inputDiv label {
     color: var(--blackColor);
