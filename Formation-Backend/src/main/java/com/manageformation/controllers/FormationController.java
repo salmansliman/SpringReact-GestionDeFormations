@@ -115,4 +115,8 @@ public class FormationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/FormationEmail")
+    public List<Formation> findFormationByEmail(String Email){
+    	return service.getFormationByEmail(Email);
+    }
 }

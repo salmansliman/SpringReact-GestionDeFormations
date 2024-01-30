@@ -115,11 +115,12 @@ public class FormationService {
 		repository.deleteById(id);
 		List <Student> etudiants = sr.findByFormationId(id);
 		for(Student s : etudiants) {
-			s.setStatue(false);
-			s.setFormation(null);
+			sr.delete(s);
 		}
 		
 		return "formation with id :"+id+"deleted";
 	}
-
+	public List<Formation>getFormationByEmail(String email){
+		return repository.findFormationByFormaterEmail(email);
+	}
 }

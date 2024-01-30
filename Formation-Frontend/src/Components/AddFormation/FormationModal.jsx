@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormationModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,13 @@ const FormationModal = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
+    const isEmpty = Object.values(formData).some((value) => value === '');
+    if (isEmpty) {
+      console.log('All fields are required.');
+      toast.error('All fields are required.');
+      onClose();
+      return;
+    }  
     onSubmit(formData);
     onClose();
   };

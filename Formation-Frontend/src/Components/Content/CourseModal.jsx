@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
 import { BiAddToQueue } from 'react-icons/bi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const CourseModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -51,7 +54,13 @@ const CourseModal = ({ isOpen, onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    // Add validation logic here if needed
+    const isEmpty = Object.values(formData).some((value) => value === '');
+    if (isEmpty) {
+      console.log('All fields are required.');
+      toast.error('All fields are required.');
+      onClose()
+      return;
+    }  
     onSubmit(formData);
     onClose();
   };

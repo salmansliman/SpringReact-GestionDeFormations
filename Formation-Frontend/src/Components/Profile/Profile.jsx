@@ -1,39 +1,30 @@
 import ProfileHeader from './ProfileHeader'
 import'./Profile.css'
 import { BiBook } from "react-icons/bi"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios, { getRole } from '../../api/axios';
 
-const courses = [
-    {
-        title: "UML",
-        duration: "2 Hours",
-        icon: <BiBook />
-    },
-    {
-        title: "Compilation",
-        duration: "1.5 Hours",
-        icon: <BiBook />
-    }
-]
 
 const Profile = () => {
     const userRole = getRole()
     const hasCourses = getRole() == "Formateur" 
     const userEmail = localStorage.getItem('user')
+    const [courses, setCourses] = useState([])
 
     useEffect(() => {
         console.log(window.location.pathname);
         console.log(hasCourses)
-      }, []);
 
-      axios.get('/users/getFormaterByEmail', userEmail)
+        axios.get('/formation/FormationEmail', userEmail)
         .then(response => {
-            console.log(response)
+            console.log("FormationEmail",response.data)
+            setCourses(response.data)
         })
         .catch(error => {
           console.error('Error fetching formateurs:', error);
         });
+      }, []);
+
       
     
   return (
@@ -51,10 +42,10 @@ const Profile = () => {
                 {courses.map((course) => (
                     <div className="course">
                         <div className="course-detail">
-                            <div className="course-cover">{course.icon}</div>
+                            <div className="course-cover"><BiBook/></div>
                             <div className="course-name">
-                                <h5 className="title">{course.title}</h5>
-                                <span className="duration">{course.duration}</span>
+                                <h5 className="title">{course.nomFormation}</h5>
+                                <span className="duration">{course.nbrHeures} Hours</span>
                             </div>
                         </div>
                         <div className="action">:</div>
