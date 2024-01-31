@@ -22,7 +22,6 @@ public class FeedbackController {
 	@Autowired
 	private FeedbackService fs;
 	
-	 
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public List<Feedback>findAll(){

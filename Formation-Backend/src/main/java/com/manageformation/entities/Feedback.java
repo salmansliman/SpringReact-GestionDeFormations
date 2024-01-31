@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 public class Feedback {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String qualite;
-	private String rythme;
-	private String cours;
-	private String maitrise;
+	private Integer id;
+	private Integer qualite;
+	private Integer rythme;
+	private Integer cours;
+	private Integer maitrise;
 	private String message;
 	@ManyToOne
 	private Student student;

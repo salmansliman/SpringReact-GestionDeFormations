@@ -54,13 +54,15 @@ public class FormationService {
 	                    	        "Course Name: " + formation.getNomFormation() + "\n" +
 	                    	        "Completion Date: " + formation.getDateEnd() + "\n\n" +
 	                    	        "We hope you found the course valuable and enriching.\n" +
+	                                "Click the following link to fill additional information:\n" +
+	                                "http://localhost:5173/feedback?idStudent=" + student.getId() + "&idTeacher=" + formation.getFormater().getId() +
 	                    	        "\n" +
 	                    	        "If you have any further inquiries or feedback, feel free to reach out.\n\n" +
 	                    	        "Thank you for choosing us for your education.\n\n" +
 	                    	        "Best regards,\n" +
 	                    	        "Formation Center";
 	                    	emailService.sendSimpleEmail(student.getEmail(), obj, body);
-	                    	sr.delete(student);
+	                    	student.setFormation(null);
 	                	}
 	                	
 	                    repository.delete(formation);
