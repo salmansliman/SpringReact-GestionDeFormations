@@ -93,7 +93,7 @@ const Accepted = () => {
               <div className="teacher--detail">
                 <h2>{student.name}</h2>
               </div>
-              <span>{student.formation.nomFormation}</span>
+              <span>{student.formation?.nomFormation || "Ex Student"}</span>
               {!isFormateur && (
                 <button
                   className="teacher--todo"
