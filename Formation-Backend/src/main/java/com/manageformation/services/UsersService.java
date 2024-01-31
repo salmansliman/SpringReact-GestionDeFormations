@@ -1,9 +1,6 @@
 package com.manageformation.services;
 
 
-import jakarta.annotation.PostConstruct;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,8 @@ import com.manageformation.entities.UserInfo;
 import com.manageformation.repositories.FormaterRepository;
 import com.manageformation.repositories.FormationRepository;
 import com.manageformation.repositories.UserInfoRepository;
+
+import jakarta.annotation.PostConstruct;
 
 
 @Service
@@ -35,7 +34,7 @@ public class UsersService {
     
     @Autowired
     private FormationRepository formationRepository;
-    
+        
     @PostConstruct
     public void add() {
     	UserInfo userInfo= new UserInfo();

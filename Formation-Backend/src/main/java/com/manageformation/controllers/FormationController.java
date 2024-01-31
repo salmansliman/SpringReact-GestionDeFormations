@@ -97,7 +97,9 @@ public class FormationController {
     public List<Formation> getFormationByFormater(@RequestBody Formater formater){
     	return service.findFormationByFormater(formater);
     }
+    
     @GetMapping("/refresh")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
     public String deleteFormationEnd() {
     	return service.deleteFormationEnd();
     }

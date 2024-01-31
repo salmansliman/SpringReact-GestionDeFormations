@@ -30,7 +30,9 @@ public class FormationService {
 	@Autowired
 	private StudentRepository sr;
 	
-	
+    @Autowired
+    EmailSenderService emailService;
+
 	   public String deleteFormationEnd() {
 	        List<Formation> formations = repository.findAll();
 	        LocalDate currentDate = LocalDate.now();
@@ -42,6 +44,26 @@ public class FormationService {
 	                LocalDate localEndDate = endDate.toLocalDate();
 
 	                if (localEndDate.isBefore(currentDate)) {
+	                	List<Student> ls = sr.findByFormationId(formation.getId());
+	                	for(Student student : ls) {
+	                    	String obj = "Course Completion - Congratulations!";
+	                    	String body = "Hello " + student.getName() + ",\n" +
+	                    	        "\n" +
+	                    	        "Congratulations on completing the course at Formation Center!\n" +
+	                    	        "\n" +
+	                    	        "Here are your course details:\n" +
+	                    	        "Course Name: " + formation.getNomFormation() + "\n" +
+	                    	        "Completion Date: " + formation.getDateEnd() + "\n\n" +
+	                    	        "We hope you found the course valuable and enriching.\n" +
+	                    	        "\n" +
+	                    	        "If you have any further inquiries or feedback, feel free to reach out.\n\n" +
+	                    	        "Thank you for choosing us for your education.\n\n" +
+	                    	        "Best regards,\n" +
+	                    	        "Formation Center";
+	                    	emailService.sendSimpleEmail(student.getEmail(), obj, body);
+	                    	sr.delete(student);
+	                	}
+	                	
 	                    repository.delete(formation);
 	                    return "Formation named: " + formation.getNomFormation() + " will be deleted";
 	                }
