@@ -36,7 +36,6 @@ public class FormationService {
 	   public String deleteFormationEnd() {
 	        List<Formation> formations = repository.findAll();
 	        LocalDate currentDate = LocalDate.now();
-
 	        for (Formation formation : formations) {
 	            Date endDate = formation.getDateEnd();
 	            
