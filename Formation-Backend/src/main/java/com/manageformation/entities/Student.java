@@ -1,5 +1,6 @@
 package com.manageformation.entities;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,6 +26,9 @@ public class Student {
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	private String lastname;
+	private Date dob;
+	private String tel;
     @Column(unique = true)
     private String email;
     private Boolean statue;

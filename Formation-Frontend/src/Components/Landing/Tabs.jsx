@@ -53,10 +53,37 @@ const Tabs = () => {
     <TabsWrapper>
       <div className="tabs">
         <div className="search-bar">
-          {/* ... (previous code) */}
+          <input
+            type="text"
+            placeholder="Search courses..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div>
+  <label htmlFor="dateFilter">Filter by Date: </label>
+  <input
+    type="date"
+    id="dateFilter"
+    name="dateFilter"
+    value={dateFilter || ''}
+    onChange={handleDateFilterChange}
+  />
+</div>
+
+          <select
+            value={cityFilter}
+            onChange={(e) => setCityFilter(e.target.value)}
+          >
+            <option value="">All Cities</option>
+            {/* Map through unique cities and render options */}
+            {[...new Set(courses.map((course) => course.ville))].map((city) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
         </div>
         <ul className="flex flex-wrap">
-          {/* Button for "All Categories" */}
           <li className="tabs-head-item">
             <button
               type="button"

@@ -40,7 +40,10 @@ const SingleCoursePage = () => {
   const handleSubmitEnrollForm = (formData) => {
     const enrollmentData = {
       name: formData.name,
+      lastname: formData.lastname,
       email: formData.email,
+      dob: formData.dob,
+      tel: formData.tel,
       formation: {
         id: parseInt(idFormation, 10),
       },
