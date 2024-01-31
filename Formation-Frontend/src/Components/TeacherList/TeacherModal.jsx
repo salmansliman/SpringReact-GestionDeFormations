@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import TagsInput from "../TagsInput/TagsInput"; 
+import {
+  AiFillPlusSquare,
+} from "react-icons/ai";
 
 const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordError }) => {
   const [formData, setFormData] = useState({
@@ -26,6 +30,13 @@ const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordEr
     setShowPassword(!showPassword);
   };
 
+  const handleTagInputChange = (tags) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      competences: tags.join(', '),
+    }));
+  };
+
   const handleSubmit = () => {
     onSubmit(formData);
     onClose();
@@ -41,7 +52,7 @@ const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordEr
       onRequestClose={onClose}
       contentLabel="Add Teacher Modal"
       className="modal"
-      emailError={"please check you eamil"}
+      emailError={"please check your email"} // Fixed typo here
     >
       <h2 className="modal-title">Add Teacher</h2>
       <form className="modal-form">
@@ -60,14 +71,10 @@ const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordEr
         <label htmlFor="competences" className="modal-label">
           Competences:
         </label>
-        <input
-          type="text"
-          id="competences"
-          name="competences"
-          value={formData.competences}
-          onChange={handleInputChange}
-          className="modal-input"
-        />
+        <div className="input flex">
+          <AiFillPlusSquare className="icon" />
+          <TagsInput selectedTags={handleTagInputChange} />
+        </div>
 
         <label htmlFor="email" className="modal-label">
           Email:
