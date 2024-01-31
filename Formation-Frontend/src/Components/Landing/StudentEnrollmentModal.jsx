@@ -5,7 +5,10 @@ import "./Modal.css";
 const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
+    lastname: "",
     email: "",
+    dob: "",
+    tel: "",
   });
 
   const handleInputChange = (e) => {
@@ -16,8 +19,34 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
     }));
   };
 
+  const isValidEmail = (email) => {
+    // Simple email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhoneNumber = (tel) => {
+    // Simple phone number validation regex
+    const telRegex = /^\d{10}$/;
+    return telRegex.test(tel);
+  };
+
   const handleSubmit = () => {
-    onSubmit(formData);
+    const { name, lastname, email, dob, tel } = formData;
+
+    // Basic validation for email and phone number
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    if (!isValidPhoneNumber(tel)) {
+      alert("Please enter a valid phone number (10 digits).");
+      return;
+    }
+
+    // If validations pass, submit the form
+    onSubmit({ name, lastname, email, dob, tel });
     onClose();
   };
 
@@ -47,6 +76,18 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
           className="modal-input"
         />
 
+        <label htmlFor="lastname" className="modal-label">
+          Lastname:
+        </label>
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          value={formData.lastname}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
         <label htmlFor="email" className="modal-label">
           Email:
         </label>
@@ -55,6 +96,30 @@ const StudentEnrollmentModal = ({ isOpen = false, onClose, onSubmit }) => {
           id="email"
           name="email"
           value={formData.email}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="dob" className="modal-label">
+          Date of Birth:
+        </label>
+        <input
+          type="date"
+          id="dob"
+          name="dob"
+          value={formData.dob}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+
+        <label htmlFor="tel" className="modal-label">
+          Phone Number:
+        </label>
+        <input
+          type="tel"
+          id="tel"
+          name="tel"
+          value={formData.tel}
           onChange={handleInputChange}
           className="modal-input"
         />
