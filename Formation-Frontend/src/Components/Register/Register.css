@@ -105,14 +105,15 @@
   .registerPage .container .formDiv .form {
     gap: 1rem;
   }
-  .registerPage .container .formDiv .form .inputDiv .icon {
-    color: var(--greyText);
+  .registerPage .container .formDiv .form .inputDiv .iconRegister {
+    color: white;
   }
   .registerPage .container .formDiv .form .inputDiv input {
     background: none;
     outline: none;
     border: none;
     width: 200px;
+    flex-wrap: wrap; /* Add this line */
   }
   .registerPage .container .formDiv .form .inputDiv label {
     color: var(--blackColor);
@@ -140,7 +141,7 @@
     gap: 0.5rem;
     transition: 0.3s ease;
   }
-  .registerPage .container .formDiv .form .btn .icon {
+  .registerPage .container .formDiv .form .btn .iconRegister {
     font-size: 25px;
     transition: 0.3s ease;
   }
@@ -148,7 +149,7 @@
     background: var(--hoverColor);
     color: var(--blackColor);
   }
-  .registerPage .container .formDiv .form .btn:hover .icon {
+  .registerPage .container .formDiv .form .btn:hover .iconRegister {
     color: var(--blackColor);
     transform: translateX(5px);
   }
@@ -162,3 +163,44 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  .registerPage .container .formDiv .headerDiv {
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+  .registerPage .container .formDiv .headerDiv img {
+    width: 200px;
+    padding: 0.5rem;
+  }
+  .registerPage .container .formDiv .headerDiv h3 {
+    font-size: 25px;
+    color: var(--blackColor);
+    font-weight: 600;
+  }
+  .registerPage .container .videoDiv .headerDiv {
+    top: 10px;
+    padding: 0 1rem;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.248);
+    left: 10px;
+    right: 10px;
+    justify-content: space-between;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    border-radius: 10px;
+  }
+  .registerPage .container .videoDiv .headerDiv .btn {
+    background: var(--whiteColor);
+    color: var(--blackColor);
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 400;
+    transition: 0.3s ease;
+  }
+  .registerPage .container .videoDiv .headerDiv .btn:hover {
+    background: var(--hoverColor);
+    color: var(--blackColor);
+  }
+  .registerPage .container .videoDiv .headerDiv {
+    position: absolute;
+  }
+      

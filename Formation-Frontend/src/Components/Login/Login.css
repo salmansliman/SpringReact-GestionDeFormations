@@ -31,6 +31,9 @@
 .loginPage .container .videoDiv .footerDiv {
   position: absolute;
 }
+.loginPage .container .videoDiv .headerDiv {
+  position: absolute;
+}
 .loginPage .container .videoDiv video {
   height: 100%;
   width: 100%;
@@ -53,6 +56,30 @@
   padding: 1rem;
   color: var(--blackColor);
   font-weight: 800;
+}
+.loginPage .container .videoDiv .headerDiv {
+  top: 10px;
+  padding: 0 1rem;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.248);
+  left: 10px;
+  right: 10px;
+  justify-content: space-between;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  border-radius: 10px;
+}
+.loginPage .container .videoDiv .headerDiv .btn {
+  background: var(--whiteColor);
+  color: var(--blackColor);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 400;
+  transition: 0.3s ease;
+}
+.loginPage .container .videoDiv .headerDiv .btn:hover {
+  background: var(--hoverColor);
+  color: var(--blackColor);
 }
 .loginPage .container .videoDiv .footerDiv {
   bottom: 10px;
@@ -106,7 +133,7 @@
 .loginPage .container .formDiv .form {
   gap: 1rem;
 }
-.loginPage .container .formDiv .form .inputDiv .icon {
+.loginPage .container .formDiv .form .inputDiv .iconLogin {
   color: var(--greyText);
 }
 .loginPage .container .formDiv .form .inputDiv input {
@@ -141,7 +168,7 @@
   gap: 0.5rem;
   transition: 0.3s ease;
 }
-.loginPage .container .formDiv .form .btn .icon {
+.loginPage .container .formDiv .form .btn .iconLogin {
   font-size: 25px;
   transition: 0.3s ease;
 }
@@ -149,7 +176,7 @@
   background: var(--hoverColor);
   color: var(--blackColor);
 }
-.loginPage .container .formDiv .form .btn:hover .icon {
+.loginPage .container .formDiv .form .btn:hover .iconLogin {
   color: var(--blackColor);
   transform: translateX(5px);
 }
