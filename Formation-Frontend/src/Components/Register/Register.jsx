@@ -16,8 +16,9 @@ import AuthContext from "../Login/context/AuthProvider";
 import axios, { isLogin } from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import RegisterService from "../../services/RegisterService";
+import TagsInput from "../TagsInput/TagsInput";
+import { toast, ToastContainer } from 'react-toastify';
 
-const REGISTER_URL = "/users/newFormaterExterne";
 
 const Register = () => {
   const { setAuth } = useContext(AuthContext);
@@ -35,6 +36,10 @@ const Register = () => {
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleTagInputChange = (tags) => {
+    setCompetences(tags.join(", "));
+  };
 
   useEffect(() => {
     if (isLogin()) {
@@ -111,6 +116,12 @@ const Register = () => {
               <h2 className="title">Get your dream degree in every field.</h2>
               <p className="paragraph">Learn, Improve, Build your future!</p>
             </div>
+            <div className="headerDiv flex">
+              <Link to={"/"}>
+                <button className="btn">Landing</button>
+              </Link>
+              <span className="text">Check out courses?</span>
+            </div>
             <div className="footerDiv flex">
               <span className="text">Already have an account?</span>
               <Link to={"/login"}>
@@ -148,15 +159,7 @@ const Register = () => {
                 <label htmlFor="competences">Competences</label>
                 <div className="input flex">
                   <AiFillPlusSquare className="icon" />
-                  <input
-                    type="text"
-                    id="competences"
-                    placeholder="Competences"
-                    autoComplete="off"
-                    onChange={(e) => setCompetences(e.target.value)}
-                    value={competences}
-                    required
-                  ></input>
+                  <TagsInput selectedTags={handleTagInputChange} />
                 </div>
               </div>
 
@@ -225,12 +228,13 @@ const Register = () => {
                 disabled={loading}
               >
                 <span>Register</span>
-                <AiOutlineSwapRight className="icon" />
+                <AiOutlineSwapRight className="iconRegister" />
               </button>
             </form>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

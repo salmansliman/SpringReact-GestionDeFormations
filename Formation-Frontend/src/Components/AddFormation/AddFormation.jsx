@@ -5,6 +5,7 @@ import Modal from "./FormationModal";
 import axios, { getRole } from "../../api/axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import FormationService from "../../services/FormationService";
+import { useCoursesContext } from "../../context/courses_context";
 
 const FormationList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +14,7 @@ const FormationList = () => {
   const isAdmin = getRole() == "Admin";
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const { addCourse, refreshCourses } = useCoursesContext();
 
   const handleAddFormation = () => {
     setIsModalOpen(true);
@@ -41,6 +43,7 @@ const FormationList = () => {
       .then((response) => {
         setIsModalOpen(false);
         setRefreshFlag(!refreshFlag);
+        refreshCourses();
       })
       .catch((error) => {
         console.error("Error adding formation:", error);
