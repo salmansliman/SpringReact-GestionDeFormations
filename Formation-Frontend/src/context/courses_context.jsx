@@ -22,7 +22,7 @@ export const CoursesProvider = ({ children }) => {
       console.error('Error fetching courses:', error);
     }
   };
-  
+
   const fetchSingleCourse = async (id) => {
     try {
       const response = await axios.get(`/formation/${id}`);
@@ -31,10 +31,14 @@ export const CoursesProvider = ({ children }) => {
       console.error('Error fetching single course:', error);
     }
   };
-  
+
   const fetchCategories = async () => {
     const response = await axios.get("/formation/categories");
     dispatch({ type: GET_CATEGORIES, payload: response.data });
+  };
+
+  const refreshCourses = () => {
+    fetchCourses();
   };
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export const CoursesProvider = ({ children }) => {
       value={{
         ...state,
         fetchSingleCourse,
+        refreshCourses,
       }}
     >
       {children}

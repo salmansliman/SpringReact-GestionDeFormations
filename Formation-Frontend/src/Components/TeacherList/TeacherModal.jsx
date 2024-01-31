@@ -72,8 +72,7 @@ const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordEr
           Competences:
         </label>
         <div className="input flex">
-          <AiFillPlusSquare className="icon" />
-          <TagsInput selectedTags={handleTagInputChange} />
+          <TagsInput selectedTags={handleTagInputChange} style={{ border: 1 }}/>
         </div>
 
         <label htmlFor="email" className="modal-label">
@@ -90,7 +89,7 @@ const TeacherModal = ({ isOpen, onClose, onSubmit, emailError, confirmPasswordEr
         {emailError && <p className="error-message">{emailError}</p>}
 
         <label htmlFor="password" className="modal-label">
-          Password:
+          Password:{}
         </label>
         <div className="password-input-container">
           <input

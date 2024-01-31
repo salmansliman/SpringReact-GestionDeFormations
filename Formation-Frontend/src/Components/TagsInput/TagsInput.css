@@ -1,13 +1,12 @@
 .tags-input {
   display: flex;
   flex-wrap: wrap;
-  min-height: 48px;
-  width: 100%;
+  min-height: 30px;
+  max-height: 40px; /* Set a maximum height */
+  overflow-y: auto; /* Make it scrollable */
   padding: 0 8px;
-  border: 1px solid rgb(214, 216, 218);
   border-radius: 6px;
   max-width: 200px;
-  max-height: 50%;
   &:focus-within {
     border: 1px solid #0052cc;
   }
@@ -32,7 +31,7 @@
     border-radius: 6px;
     margin: 0 8px 8px 0;
     background: #0052cc;
-    max-width: calc(100% - 16px); /* Adjust the max-width based on your design */
+    max-width: calc(100% - 16px); 
 
     .tag-title {
       margin-top: 3px;
@@ -52,4 +51,10 @@
       cursor: pointer;
     }
   }
+}
+
+.tags-input-field {
+  overflow: auto; /* Change from scroll to auto */
+  max-height: 48px; /* Set a maximum height */
+  resize: none; /* Disable textarea resizing */
 }

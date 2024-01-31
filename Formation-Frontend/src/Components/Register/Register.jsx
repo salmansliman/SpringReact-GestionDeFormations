@@ -116,6 +116,12 @@ const Register = () => {
               <h2 className="title">Get your dream degree in every field.</h2>
               <p className="paragraph">Learn, Improve, Build your future!</p>
             </div>
+            <div className="headerDiv flex">
+              <Link to={"/"}>
+                <button className="btn">Landing</button>
+              </Link>
+              <span className="text">Check out courses?</span>
+            </div>
             <div className="footerDiv flex">
               <span className="text">Already have an account?</span>
               <Link to={"/login"}>
@@ -222,7 +228,7 @@ const Register = () => {
                 disabled={loading}
               >
                 <span>Register</span>
-                <AiOutlineSwapRight className="icon" />
+                <AiOutlineSwapRight className="iconRegister" />
               </button>
             </form>
           </div>
