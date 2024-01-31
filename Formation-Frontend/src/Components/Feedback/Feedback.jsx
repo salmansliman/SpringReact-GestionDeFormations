@@ -80,7 +80,7 @@ function Feedback() {
   };
 
   return (
-    <div className="container">
+    <div className="containerFeedback">
       <h2 style={{ marginBottom: 50 }}>Feedback Form</h2>
       {categories.map((category) => (
         <FeedbackCategory
