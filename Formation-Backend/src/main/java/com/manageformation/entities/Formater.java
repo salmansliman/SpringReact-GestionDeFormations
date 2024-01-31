@@ -11,6 +11,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,7 @@ public class Formater extends UserInfo {
 	@OneToMany(mappedBy = "formater")
 	@JsonIgnore
 	private List<Formation> formation;
+	@OneToMany(mappedBy = "formateur")
+	@JsonIgnore
+	List<Feedback> feedbacks;
 }

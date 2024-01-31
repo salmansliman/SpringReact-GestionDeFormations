@@ -16,6 +16,7 @@ import Planification from "./Components/PlanifierFormation/Planification";
 import SingleCourse from "./Components/Landing/SingleCoursePage";
 import Students from "./Components/Students/Students";
 import Accepted from "./Components/Students/Accepted";
+import Feedback from "./Components/Feedback/Feedback";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
+              <Route path="feedback" element={<Feedback />} />
               <Route path = "courses/:idFormation" element = {<SingleCourse />} />
               <Route path="dashboard" element={<Dashboard />}>
                 <Route path="" element={<DashboardHome />} />

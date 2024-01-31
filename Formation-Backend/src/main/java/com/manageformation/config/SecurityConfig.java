@@ -43,11 +43,11 @@ public class SecurityConfig {
                 "/formation/welcome", "/entreprise/welcome", "/formation/all",
                 "/formation/{ville}", "/formation/{date}", "/{date1}/{date2}",
                 "/formation/**", "/student/new", "/users/getFormaterByEmail",
-                "/formation/FormationEmail"
+                "/formation/FormationEmail","/feedback/add"
         };
 
         String[] authenticatedRoutes = {
-                "/users/**", "/entreprise/**", "/student/**", "/formation/**"
+                "/users/**", "/entreprise/**", "/student/**", "/formation/**","/feedback/**"
         };
 
         return http.csrf().disable()

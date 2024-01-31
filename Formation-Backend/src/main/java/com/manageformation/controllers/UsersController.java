@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.manageformation.dto.AuthRequest;
 import com.manageformation.entities.Formater;
 import com.manageformation.entities.UserInfo;
+import com.manageformation.services.EmailSenderService;
 import com.manageformation.services.JwtService;
 import com.manageformation.services.UsersService;
 
@@ -38,6 +39,8 @@ public class UsersController {
     @Autowired
     private UsersService userService;
     
+    @Autowired
+    EmailSenderService emailService;
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -52,6 +55,16 @@ public class UsersController {
     @PostMapping("/newFormaterInterne")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String addNewFormaterInterne(@RequestBody Formater formater) {
+    	String obj = "Formation Center - Email Credentials";
+    	String body = "Hello "+formater.getName()+",\n" +
+                "\n" +
+                "Here are your login Credentials:\n" +
+                "\n" +
+                "Username: "+formater.getEmail()+"\n" +
+                "Password: "+formater.getPassword()+"\n\n" +
+                "\n" +
+                "Note: This is an automated email. Please don't reply to it." ;
+    	emailService.sendSimpleEmail(formater.getEmail(), obj, body);
         return service.addFormaterInterne(formater);
     }
     

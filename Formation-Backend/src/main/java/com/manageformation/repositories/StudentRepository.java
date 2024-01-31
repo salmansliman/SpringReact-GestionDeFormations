@@ -17,6 +17,4 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Student> findByStatueFalse();
 	List<Student> findByStatueTrue();
 	List<Student> findByFormationId(int id);
-	 
-
 }
